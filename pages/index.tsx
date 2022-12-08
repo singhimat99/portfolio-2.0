@@ -1,19 +1,18 @@
 import Head from "next/head";
 import Image from "next/image";
+import Hero from "../components/Hero";
 
 export default function Home() {
     return (
-        <div>
+        <div className="bg-light-primary dark:bg-dark-primary text-light-secondary dark:text-dark-secondary h-screen">
             <Head>
                 <title>Himat Singh</title>
             </Head>
 
-            <h1 className="text-3xl font-bold underline text-light-primary dark:text-dark-primary">
-                Hello world!
-            </h1>
-            {/* Header  */}
-
             {/* Hero  */}
+            <section id="hero">
+                <Hero />
+            </section>
             {/* About  */}
             {/* Skills  */}
             {/* Projects  */}

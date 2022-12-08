@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --main-bg: blue;
-}
 @media (prefers-color-scheme: dark) {
+}
+.dark-mode {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
 }

@@ -1,12 +1,13 @@
-import React, { ChangeEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { FiSun, FiMoon } from "react-icons/fi";
+import { useTheme } from "../pages/_app";
 
 type Props = {};
 const DarkMode = (props: Props) => {
-    const [isDark, setIsDark] = useState(false);
+    const { isDark, setIsDark } = useTheme();
     const styles = {
         container: {
-            width: "50px",
+            width: "30px",
             aspectRatio: "1",
             display: "flex",
             justifyContent: "center",
@@ -49,11 +50,19 @@ const DarkMode = (props: Props) => {
     }
 
     return (
-        <div style={styles.container} onClick={toggleTheme}>
+        <div
+            style={styles.container}
+            onClick={toggleTheme}
+            className="dark-mode"
+        >
             {isDark ? (
-                <FiSun size="50px" color="white" />
+                <FiSun size="50px" color="white" style={{ color: "#fffffe" }} />
             ) : (
-                <FiMoon size="50px" color="black" />
+                <FiMoon
+                    size="50px"
+                    color="black"
+                    style={{ color: "#16161a" }}
+                />
             )}
         </div>
     );

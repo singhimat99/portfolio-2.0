@@ -9,11 +9,17 @@ module.exports = {
         extend: {
             colors: {
                 // Light theme colors
-                "light-primary": "#222222",
-                "light-secondary": "#eeeeee",
+                "light-primary": "#fffffe",
+                "light-secondary": "#2b2c34",
+                "light-highlight": "#6246ea",
+                "light-tertiary": "#d1d1e9",
+
                 // Dark theme colors
-                "dark-primary": "#ffffff",
-                "dark-secondary": "#333333",
+                "dark-primary": "#16161a",
+                "dark-secondary": "#fffffe",
+                "dark-highlight": "#7f5af0",
+                "dark-tertiary": "#94a1b2",
+                "dark-highlight2": "#2cb67d",
             },
         },
     },
