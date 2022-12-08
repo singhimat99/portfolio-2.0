@@ -5,11 +5,11 @@ import Header from "../components/Header";
 
 export default function Home() {
     return (
-        <div className="text-light-secondary dark:text-dark-secondary h-screen max-w-7xl mx-auto">
+        <main className=" h-screen max-w-7xl mx-auto">
             <Head>
                 <title>Himat Singh</title>
             </Head>
-            <Header />
+
             {/* Hero  */}
             <section id="hero">
                 <Hero />
@@ -18,6 +18,6 @@ export default function Home() {
             {/* Skills  */}
             {/* Projects  */}
             {/* Contact Me  */}
-        </div>
+        </main>
     );
 }

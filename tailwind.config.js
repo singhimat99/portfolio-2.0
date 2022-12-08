@@ -21,6 +21,9 @@ module.exports = {
                 "dark-tertiary": "#94a1b2",
                 "dark-highlight2": "#2cb67d",
             },
+            fontFamily: {
+                body: ["Barlow"],
+            },
         },
     },
     plugins: [],
