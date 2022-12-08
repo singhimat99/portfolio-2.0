@@ -16,7 +16,7 @@ export default function Header({}: Props) {
             <Head>
                 <title>Himat's Blog</title>
             </Head>
-            <header className="sticky top-0 p-4 flex justify-between items-center max-w-7xl mx-auto z-20 bg-light-primary dark:bg-dark-primary">
+            <header className="sticky top-0 p-4 pr-7 flex justify-between items-center mx-auto z-20 ">
                 <motion.div
                     initial={{ x: -500, opacity: 0, scale: 0.5 }}
                     animate={{ x: 0, opacity: 1, scale: 1 }}
@@ -34,20 +34,20 @@ export default function Header({}: Props) {
                         bgColor="transparent"
                     />
                 </motion.div>
-                <motion.div
+                <motion.nav
                     initial={{ x: 500, opacity: 0, scale: 0.5 }}
                     animate={{ x: 0, opacity: 1, scale: 1 }}
                     transition={{ duration: 1.5 }}
                 >
                     <ul className="flex flex-row items-center gap-2">
-                        <li className="text-light-secondary dark:text-dark-secondary">
+                        <li>
                             <Link href="/">Portfolio</Link>
                         </li>
-                        <li className="text-light-secondary dark:text-dark-secondary">
+                        <li>
                             <Link href="/blog">Blog</Link>
                         </li>
                     </ul>
-                </motion.div>
+                </motion.nav>
             </header>
         </>
     );
