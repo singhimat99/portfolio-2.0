@@ -18,7 +18,7 @@ export default function Header({}: Props) {
             <Head>
                 <title>Himat's Blog</title>
             </Head>
-            <header className="sticky top-0 p-4 pr-7 flex justify-between items-center max-w-7xl mx-auto z-20 bg-light-primary dark:bg-dark-primary ">
+            <header className="sticky top-0 p-4 pr-7 flex justify-between items-center max-w-7xl mx-auto z-20 bg-transparent">
                 {/* <motion.div
                     initial={{ x: -500, opacity: 0, scale: 0.5 }}
                     animate={{ x: 0, opacity: 1, scale: 1 }}
@@ -41,11 +41,11 @@ export default function Header({}: Props) {
                     animate={{ x: 0, opacity: 1, scale: 1 }}
                     transition={{ duration: 1.5 }}
                 >
-                    <ul className="flex flex-row items-center gap-2">
-                        <li>
+                    <ul className="flex flex-row items-center gap-4">
+                        <li className="text-lg tracking-wider uppercase text-gray-300">
                             <Link href="/">Home</Link>
                         </li>
-                        <li>
+                        <li className="text-lg tracking-widest uppercase text-gray-300">
                             <Link href="/blog">Blog</Link>
                         </li>
                     </ul>

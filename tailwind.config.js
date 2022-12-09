@@ -7,9 +7,6 @@ module.exports = {
     darkMode: "class",
     theme: {
         extend: {
-            backgroundImage: {
-                "hero-background": "url('../public/sfbridge.jpg')",
-            },
             colors: {
                 // Light theme colors
                 "light-primary": "#fffffe",

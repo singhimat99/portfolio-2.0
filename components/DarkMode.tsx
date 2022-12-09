@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { FiSun, FiMoon } from "react-icons/fi";
 import { useTheme } from "../pages/_app";
 
@@ -36,7 +36,8 @@ const DarkMode = (props: Props) => {
 
     useEffect(() => {
         const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-        if (mediaQuery.matches) setDark();
+        const theme = localStorage.getItem("theme");
+        if (mediaQuery.matches && theme === "dark") setDark();
     }, []);
 
     function toggleTheme() {

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import portrait from "../public/profile-pic.png";
+import { useTheme } from "../pages/_app";
 
 import BackgroundAnimation from "./BackgroundAnimation";
 
@@ -18,12 +19,10 @@ export default function Hero({}: Props) {
         loop: true,
         delaySpeed: 2000,
     });
+    const { isDark } = useTheme();
     return (
-        <section
-            id="hero"
-            className="relative w-full h-screen snap-center overflow-hidden"
-        >
-            <BackgroundAnimation />
+        <section id="hero" className="relative w-full h-screen snap-center ">
+            {isDark ? <BackgroundAnimation /> : null}
             <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-full flex flex-col items-center justify-center mx-auto">
                 <Image
                     src={portrait}
@@ -48,7 +47,7 @@ export default function Hero({}: Props) {
                         <button className="hero-button">Projects</button>
                     </Link>
                     <Link href="#contact">
-                        <button className="hero-button">Contact Me</button>
+                        <button className="hero-button">Contact</button>
                     </Link>
                 </div>
             </div>
