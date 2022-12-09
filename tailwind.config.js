@@ -7,6 +7,9 @@ module.exports = {
     darkMode: "class",
     theme: {
         extend: {
+            backgroundImage: {
+                "hero-background": "url('../public/sfbridge.jpg')",
+            },
             colors: {
                 // Light theme colors
                 "light-primary": "#fffffe",
@@ -23,6 +26,15 @@ module.exports = {
             },
             fontFamily: {
                 body: ["Barlow"],
+            },
+            keyframes: {
+                ripple: {
+                    "0%, 100%": { transform: "scale(0.8)" },
+                    "50%": { transform: "scale(1.2)" },
+                },
+            },
+            animation: {
+                ripple: "ripple 10s infinite",
             },
         },
     },

@@ -1,7 +1,6 @@
 import "../styles/globals.css";
 import { createContext, useContext, useState } from "react";
 import type { AppProps } from "next/app";
-import DarkMode from "../components/DarkMode";
 import Header from "../components/Header";
 interface ThemeProps {
     isDark?: any;
@@ -18,7 +17,6 @@ export default function App({ Component, pageProps }: AppProps) {
     return (
         <ThemeContext.Provider value={{ isDark, setIsDark }}>
             <Header />
-            <DarkMode />
             <Component {...pageProps} />
         </ThemeContext.Provider>
     );

@@ -9,10 +9,34 @@
 
 @media (prefers-color-scheme: dark) {
 }
-.dark-mode {
+
+.bg {
+    animation: slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, #333333 50%, #222222 50%);
+    bottom: 0;
+    left: -50%;
+    opacity: 0.2;
     position: absolute;
+    right: -50%;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
+    z-index: -1;
+}
+
+.bg2 {
+    animation-direction: alternate-reverse;
+    animation-duration: 4s;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(-25%);
+    }
+    100% {
+        transform: translateX(25%);
+    }
+}
+@layer components {
+    .hero-button {
+        @apply uppercase px-4 py-3 text-xs text-light-secondary dark:text-gray-400 hover:border transition-all border-light-highlight dark:border-dark-highlight rounded-full;
+    }
 }

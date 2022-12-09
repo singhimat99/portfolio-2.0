@@ -50,20 +50,25 @@ const DarkMode = (props: Props) => {
     }
 
     return (
-        <div
-            style={styles.container}
-            onClick={toggleTheme}
-            className="dark-mode"
-        >
-            {isDark ? (
-                <FiSun size="50px" color="white" style={{ color: "#fffffe" }} />
-            ) : (
-                <FiMoon
-                    size="50px"
-                    color="black"
-                    style={{ color: "#16161a" }}
-                />
-            )}
+        <div style={styles.container}>
+            <button
+                className="rounded-lg border-gray-500 border-2 p-2 hover:scale-110 transition-transform"
+                onClick={toggleTheme}
+            >
+                {isDark ? (
+                    <FiSun
+                        size="20px"
+                        color="white"
+                        style={{ color: "#fffffe" }}
+                    />
+                ) : (
+                    <FiMoon
+                        size="20px"
+                        color="black"
+                        style={{ color: "#16161a" }}
+                    />
+                )}
+            </button>
         </div>
     );
 };
