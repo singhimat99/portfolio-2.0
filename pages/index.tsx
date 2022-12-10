@@ -7,7 +7,7 @@ import Skills from "../components/Skills";
 
 export default function Home() {
     return (
-        <main className="h-screen max-w-7xl mx-auto snap-y snap-mandatory overflow-auto">
+        <main className="h-screen max-w-7xl mx-auto md:snap-y md:snap-mandatory overflow-auto">
             <Head>
                 <title>Himat Singh</title>
             </Head>
@@ -24,9 +24,10 @@ export default function Home() {
             <section id="skills" className="w-full h-screen snap-start">
                 <Skills />
             </section>
-            <section id="contact" className="w-full h-screen snap-end">
+            <section id="contact" className="w-full h-screen snap-start">
                 <Contact />
             </section>
+            <div className="md:h-[50vh] md:snap-end"></div>
             {/* About  */}
             {/* Skills  */}
             {/* Projects  */}

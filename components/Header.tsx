@@ -18,7 +18,7 @@ export default function Header({}: Props) {
             <Head>
                 <title>Himat's Blog</title>
             </Head>
-            <header className="sticky top-0 p-4 pr-7 flex justify-between items-center max-w-7xl mx-auto z-20 bg-transparent">
+            <header className="sticky top-0 p-4 px-7 flex justify-between items-center max-w-7xl mx-auto z-20 bg-transparent">
                 {/* <motion.div
                     initial={{ x: -500, opacity: 0, scale: 0.5 }}
                     animate={{ x: 0, opacity: 1, scale: 1 }}
