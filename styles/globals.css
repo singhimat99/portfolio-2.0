@@ -38,4 +38,7 @@
     .hero-button {
         @apply uppercase px-4 py-3 text-xs text-light-secondary dark:text-gray-400 hover:border transition-all border-light-highlight dark:border-dark-highlight rounded-full;
     }
+    .section-title {
+        @apply absolute top-16 left-[50%] transform -translate-x-1/2 uppercase tracking-[17.5px] text-2xl dark:text-gray-500;
+    }
 }

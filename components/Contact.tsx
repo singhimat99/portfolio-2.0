@@ -5,9 +5,7 @@ type Props = {};
 export default function Contact({}: Props) {
     return (
         <div className="relative">
-            <h2 className="absolute top-0 left-[50%] transform -translate-x-1/2 uppercase tracking-[17.5px] text-2xl dark:text-gray-500">
-                Contact
-            </h2>
+            <h2 className="section-title">Contact</h2>
         </div>
     );
 }

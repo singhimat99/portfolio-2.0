@@ -42,10 +42,10 @@ export default function Header({}: Props) {
                     transition={{ duration: 1.5 }}
                 >
                     <ul className="flex flex-row items-center gap-4">
-                        <li className="text-lg tracking-wider uppercase text-gray-300">
+                        <li className="text-lg tracking-wider uppercase dark:text-gray-300 ">
                             <Link href="/">Home</Link>
                         </li>
-                        <li className="text-lg tracking-widest uppercase text-gray-300">
+                        <li className="text-lg tracking-widest uppercase dark:text-gray-300 ">
                             <Link href="/blog">Blog</Link>
                         </li>
                     </ul>
