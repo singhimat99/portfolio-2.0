@@ -1,4 +1,4 @@
-import React, { useRef, FormEventHandler } from "react";
+import React, { useState, FormEventHandler, MutableRefObject } from "react";
 import emailjs from "@emailjs/browser";
 import { MdCall, MdEmail, MdLocationOn } from "react-icons/md";
 
@@ -10,30 +10,39 @@ type Inputs = {
 };
 
 export default function Contact({}: Props) {
-    // const form = useRef<HTMLFormElement | undefined>();
-    // const sendEmail: FormEventHandler = (e) => {
-    //     e.preventDefault();
+    const [formData, setFormData] = useState<Inputs>({
+        name: "",
+        email: "",
+        message: "",
+    });
 
-    //     emailjs
-    //         .sendForm(
-    //             "service_4giz8m5",
-    //             "template_4nwbg37",
-    //             form.current.,
-    //             "ThpDWhmxSJ3owe4ym"
-    //         )
-    //         .then(
-    //             (result) => {
-    //                 console.log(result.text);
-    //             },
-    //             (error) => {
-    //                 console.log(error.text);
-    //             }
-    //         );
-    //     alert(
-    //         "You have successfully sent me a message! I will get back to you as soon as possible."
-    //     );
-    //     e.target.reset();
-    // };
+    const sendEmail: FormEventHandler = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+
+        emailjs
+            .send(
+                "service_4giz8m5",
+                "template_4nwbg37",
+                formData,
+                "ThpDWhmxSJ3owe4ym"
+            )
+            .then(
+                (result) => {
+                    console.log(result.text);
+                },
+                (error) => {
+                    console.log(error.text);
+                }
+            );
+        alert(
+            "You have successfully sent me a message! I will get back to you as soon as possible."
+        );
+        setFormData({
+            name: "",
+            email: "",
+            message: "",
+        });
+    };
     return (
         <div className="relative flex flex-col justify-center items-center min-h-screen border py-20 border-red-500">
             <h2 className="section-title">Contact</h2>
@@ -49,10 +58,9 @@ export default function Contact({}: Props) {
             </div>
             <div className="flex flex-col justify-center items-center w-full">
                 <form
-                    action=""
                     className="flex flex-col gap-4 md:gap-8 w-[75%] md:w-[50%]"
-                    // ref={form}
-                    // onSubmit={sendEmail}
+                    onSubmit={sendEmail}
+                    id="form"
                 >
                     <div className="flex flex-col gap-1 md:gap-4">
                         <label htmlFor="input_name">Name:</label>
@@ -61,6 +69,12 @@ export default function Contact({}: Props) {
                             placeholder="Enter Your Name"
                             type="text"
                             id="input_name"
+                            value={formData.name}
+                            onChange={(e) =>
+                                setFormData((prev) => {
+                                    return { ...prev, name: e.target.value };
+                                })
+                            }
                             className="contact_form-input"
                             name="name"
                         />
@@ -71,6 +85,12 @@ export default function Contact({}: Props) {
                             required
                             placeholder="Enter Your Email"
                             type="email"
+                            value={formData.email}
+                            onChange={(e) =>
+                                setFormData((prev) => {
+                                    return { ...prev, email: e.target.value };
+                                })
+                            }
                             id="input_email"
                             className="contact_form-input"
                             name="email"
@@ -82,6 +102,12 @@ export default function Contact({}: Props) {
                             required
                             cols={30}
                             rows={5}
+                            value={formData.message}
+                            onChange={(e) =>
+                                setFormData((prev) => {
+                                    return { ...prev, message: e.target.value };
+                                })
+                            }
                             className="contact_form-input resize-none"
                             placeholder="Enter Your Message"
                             id="input_message"
@@ -91,7 +117,7 @@ export default function Contact({}: Props) {
                     <input
                         type="submit"
                         value="Submit"
-                        className="mt-4 place-self-end uppercase text-xl p-4 border rounded-lg tracking-widest border-light-secondary dark:border-dark-secondary"
+                        className="mt-4 place-self-end shadow-2xl uppercase text-xl p-4 border rounded-lg tracking-widest border-light-secondary dark:border-dark-secondary hover:transform hover:scale-110 transition-all"
                     />
                 </form>
             </div>

@@ -42,6 +42,6 @@
         @apply relative w-full text-center justify-self-start mb-4 uppercase tracking-[17.5px] text-3xl dark:text-gray-500 after:h-[1px] dark:after:bg-transparent after:bg-light-highlight after:absolute after:-bottom-3 after:left-[50%] after:transform after:-translate-x-[50%] after:w-[50%];
     }
     .contact_form-input {
-        @apply border border-light-secondary dark:bg-dark-tertiary/50 dark:text-dark-secondary rounded-xl p-4 focus:text-light-highlight;
+        @apply border shadow-xl border-light-secondary dark:bg-dark-tertiary/50 dark:text-dark-secondary rounded-xl p-4 focus:text-light-highlight;
     }
 }
