@@ -39,7 +39,7 @@
         @apply uppercase px-4 py-3 text-xs text-light-secondary dark:text-gray-400 hover:border transition-all border-light-highlight dark:border-dark-highlight rounded-full;
     }
     .section-title {
-        @apply absolute top-16 left-[50%] mb-4 transform -translate-x-1/2 uppercase tracking-[17.5px] text-3xl dark:text-gray-500 after:h-[1px] dark:after:bg-transparent after:bg-light-highlight after:absolute after:-bottom-3 after:left-[45%] after:transform after:-translate-x-[50%] after:w-[350px];
+        @apply relative w-full text-center justify-self-start mb-4 uppercase tracking-[17.5px] text-3xl dark:text-gray-500 after:h-[1px] dark:after:bg-transparent after:bg-light-highlight after:absolute after:-bottom-3 after:left-[50%] after:transform after:-translate-x-[50%] after:w-[50%];
     }
     .contact_form-input {
         @apply border border-light-secondary dark:bg-dark-tertiary/50 dark:text-dark-secondary rounded-xl p-4 focus:text-light-highlight;

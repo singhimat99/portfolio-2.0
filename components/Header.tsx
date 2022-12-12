@@ -5,20 +5,17 @@ import Link from "next/link";
 
 import DarkMode from "./DarkMode";
 
-import { SocialIcon } from "react-social-icons";
-import { useTheme } from "../pages/_app";
-import { motion } from "framer-motion";
+// import { SocialIcon } from "react-social-icons";
 
 type Props = {};
 
 export default function Header({}: Props) {
-    let { isDark } = useTheme();
     return (
         <>
             <Head>
-                <title>Himat's Blog</title>
+                <title>Himats Blog</title>
             </Head>
-            <header className="sticky top-0 p-4 px-7 flex justify-between items-center max-w-7xl mx-auto z-20 bg-transparent">
+            <header className="fixed top-0 p-4 items-center w-full z-20 bg-transparent backdrop-blur border-b-[.25px] border-light-secondary dark:border-dark-secondary">
                 {/* <motion.div
                     initial={{ x: -500, opacity: 0, scale: 0.5 }}
                     animate={{ x: 0, opacity: 1, scale: 1 }}
@@ -36,10 +33,11 @@ export default function Header({}: Props) {
                         bgColor="transparent"
                     />
                 </motion.div> */}
-                <motion.nav
-                    initial={{ x: -500, opacity: 0, scale: 0.5 }}
-                    animate={{ x: 0, opacity: 1, scale: 1 }}
-                    transition={{ duration: 1.5 }}
+                <nav
+                    // initial={{ x: -500, opacity: 0, scale: 0.5 }}
+                    // animate={{ x: 0, opacity: 1, scale: 1 }}
+                    // transition={{ duration: 1.5 }}
+                    className="flex justify-between max-w-6xl mx-auto px-7 "
                 >
                     <ul className="flex flex-row items-center gap-4">
                         <li className="text-lg tracking-wider uppercase dark:text-gray-300 ">
@@ -49,8 +47,8 @@ export default function Header({}: Props) {
                             <Link href="/blog">Blog</Link>
                         </li>
                     </ul>
-                </motion.nav>
-                <DarkMode />
+                    <DarkMode />
+                </nav>
             </header>
         </>
     );

@@ -7,7 +7,7 @@ import Skills from "../components/Skills";
 
 export default function Home() {
     return (
-        <main className="h-screen max-w-7xl mx-auto md:snap-y md:snap-mandatory overflow-auto">
+        <main className="h-screen max-w-6xl mx-auto md:snap-y md:snap-mandatory overflow-auto">
             <Head>
                 <title>Himat Singh</title>
             </Head>
@@ -15,23 +15,35 @@ export default function Home() {
             {/* Hero  */}
             <Hero />
 
-            <section id="about" className="w-full h-screen snap-start">
+            <section
+                id="about"
+                className="w-full snap-center border border-red-500"
+            >
                 <About />
             </section>
-            <section id="projects" className="w-full h-screen snap-start">
+            <section
+                id="projects"
+                className="w-full h-screen snap-center border border-purple-500"
+            >
                 <Projects />
             </section>
-            <section id="skills" className="w-full h-screen snap-start">
+            <section
+                id="skills"
+                className="w-full h-screen snap-start border border-green-500"
+            >
                 <Skills />
             </section>
-            <section id="contact" className="w-full h-screen snap-start">
+            <section
+                id="contact"
+                className="w-full snap-start border border-blue-500"
+            >
                 <Contact />
             </section>
-            <div className="md:h-[50vh] md:snap-end"></div>
-            {/* About  */}
-            {/* Skills  */}
-            {/* Projects  */}
-            {/* Contact Me  */}
+            <footer className="relative w-screen h-[30vh] snap-end bg-black text-white border border-red-500">
+                <ul>
+                    <li>Home</li>
+                </ul>
+            </footer>
         </main>
     );
 }

@@ -38,7 +38,7 @@ const DarkMode = (props: Props) => {
         const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
         const theme = localStorage.getItem("theme");
         if (mediaQuery.matches && theme === "dark") setDark();
-    }, []);
+    });
 
     function toggleTheme() {
         //TODO

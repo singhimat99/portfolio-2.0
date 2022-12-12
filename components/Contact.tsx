@@ -35,9 +35,9 @@ export default function Contact({}: Props) {
     //     e.target.reset();
     // };
     return (
-        <div className="relative">
+        <div className="relative flex flex-col justify-center items-center min-h-screen border py-20 border-red-500">
             <h2 className="section-title">Contact</h2>
-            <div className="absolute top-32 left-1/2 transform -translate-x-1/2 w-[80%] md:max-w-xl dark:text-dark-secondary/90">
+            <div className="w-[80%] md:max-w-xl dark:text-dark-secondary/90">
                 <p className="text-center text-base">
                     Feel free to contact me. Please fill out the form below and
                     I will get back to you as soon as possible.
@@ -47,7 +47,7 @@ export default function Contact({}: Props) {
                     singhimat99@gmail.com
                 </p>
             </div>
-            <div className="absolute top-56 py-10 flex flex-col justify-center items-center w-full">
+            <div className="flex flex-col justify-center items-center w-full">
                 <form
                     action=""
                     className="flex flex-col gap-4 md:gap-8 w-[75%] md:w-[50%]"
