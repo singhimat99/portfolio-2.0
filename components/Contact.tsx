@@ -1,6 +1,6 @@
-import React, { useState, FormEventHandler, MutableRefObject } from "react";
+import React, { useState, FormEventHandler } from "react";
 import emailjs from "@emailjs/browser";
-import { MdCall, MdEmail, MdLocationOn } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
 
 type Props = {};
 type Inputs = {
