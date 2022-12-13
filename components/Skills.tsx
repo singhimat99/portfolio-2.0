@@ -1,45 +1,73 @@
-import React, { useState } from "react";
+import React, { useState, MouseEvent } from "react";
 
 type Props = {};
 
-export default function Skills({}: Props) {
-    const [isSelected, setIsSelected] = useState(false);
-    // const randomLetters = generateRandomLetters(144);
-    const table = Array(12).fill(Array(12).fill(0));
+// create table
+//select a cell
+// allow only one selection
+// deselect cell
+// be able to select 2 cells and fill in all cells in between
+// be able to check
 
+export default function Skills({}: Props) {
+    const [selected, setSelected] = useState({
+        number: 0,
+        index: {},
+    });
+    // const randomLetters = generateRandomLetters(144);
+    const [table, setTable] = useState<number[][]>(() => {
+        return new Array(5).fill(0).map((row) => new Array(5).fill(0));
+    });
+    console.log("table", table);
+
+    function handleClick(e: MouseEvent<HTMLDivElement>, i: number, j: number) {
+        let selected: boolean = false;
+        if (table[i][j] === 1) selected = true;
+        updateTable(i, j, selected);
+        // setTable((prev) => {
+        //     const arr: number[][] = prev;
+        //     arr[8][6] = 1;
+        //     console.log("works");
+        //     return arr;
+        // });
+    }
+    function updateTable(row: number, col: number, isSelected: boolean) {
+        if (isSelected) {
+            setTable((prev) => {
+                const arr = [...prev];
+                arr[row][col] = 0;
+                return arr;
+            });
+            return;
+        }
+        setTable((prev) => {
+            const arr = [...prev];
+            arr[row][col] = 1;
+            return arr;
+        });
+    }
     return (
         <div className="relative flex flex-col justify-center items-center h-full">
             <h2 className="section-title">Skills</h2>
             <div>
                 <div>
-                    {table.map((col: Array<number>, i: number) => {
+                    {table.map((row: Array<number>, i: number) => {
                         return (
                             <div className="flex" key={i}>
-                                {col.map((row: number, j: number) => {
+                                {row.map((cellValue: number, j: number) => {
                                     return (
                                         <div
                                             key={j}
                                             className="w-[40px] h-[40px] cursor-pointer border border-green-400 text-center table-cell align-middle"
-                                            onClick={(e) => {
-                                                const bgColor =
-                                                    e.currentTarget.style
-                                                        .backgroundColor;
-                                                if (bgColor === "red") {
-                                                    e.currentTarget.style.backgroundColor =
-                                                        "transparent";
-                                                    setIsSelected(false);
-                                                    return;
-                                                }
-                                                if (isSelected) return;
-                                                e.currentTarget.style.backgroundColor =
-                                                    "red";
-                                                setIsSelected(true);
+                                            onClick={(e) =>
+                                                handleClick(e, i, j)
+                                            }
+                                            style={{
+                                                backgroundColor:
+                                                    cellValue === 1
+                                                        ? "red"
+                                                        : "transparent",
                                             }}
-                                            // style={{
-                                            //     backgroundColor: isSelected
-                                            //         ? "red"
-                                            //         : "transparent",
-                                            // }}
                                         >
                                             {`${i}, ${j}`}
                                         </div>
