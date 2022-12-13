@@ -21,9 +21,10 @@ export default function Skills({}: Props) {
     console.log("table", table);
 
     function handleClick(e: MouseEvent<HTMLDivElement>, i: number, j: number) {
-        let selected: boolean = false;
-        if (table[i][j] === 1) selected = true;
-        updateTable(i, j, selected);
+        let isSelected: boolean = false;
+        if (table[i][j] === 1) isSelected = true;
+
+        updateTable(i, j, isSelected);
         // setTable((prev) => {
         //     const arr: number[][] = prev;
         //     arr[8][6] = 1;
@@ -31,6 +32,7 @@ export default function Skills({}: Props) {
         //     return arr;
         // });
     }
+
     function updateTable(row: number, col: number, isSelected: boolean) {
         if (isSelected) {
             setTable((prev) => {
