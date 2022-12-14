@@ -10,44 +10,106 @@ type Props = {};
 // be able to check
 
 export default function Skills({}: Props) {
-    const [selected, setSelected] = useState({
-        number: 0,
-        index: {},
-    });
+    const [clicks, setClicks] = useState(0);
+    const [previousCell, setPreviousCell] = useState<number[] | null>(null);
+    const [selectedCells, setSelectedCells] = useState(() => new Set());
+    const [slope, setSlope] = useState<number[]>([]);
     // const randomLetters = generateRandomLetters(144);
     const [table, setTable] = useState<number[][]>(() => {
         return new Array(5).fill(0).map((row) => new Array(5).fill(0));
     });
-    console.log("table", table);
+    // console.log("table", table);
+
+    // const mySet = new Set();
+    // mySet.add("2,3");
+    // mySet.add("3,3");
+    // mySet.delete("2,3");
+    // const value = mySet.values();
+    // console.log(mySet);
+    console.log(previousCell);
+    console.log(slope);
 
     function handleClick(e: MouseEvent<HTMLDivElement>, i: number, j: number) {
-        let isSelected: boolean = false;
-        if (table[i][j] === 1) isSelected = true;
-
-        updateTable(i, j, isSelected);
-        // setTable((prev) => {
-        //     const arr: number[][] = prev;
-        //     arr[8][6] = 1;
-        //     console.log("works");
-        //     return arr;
-        // });
-    }
-
-    function updateTable(row: number, col: number, isSelected: boolean) {
-        if (isSelected) {
-            setTable((prev) => {
-                const arr = [...prev];
-                arr[row][col] = 0;
-                return arr;
-            });
+        if (table[i][j] === 1) {
+            deselectCell(i, j);
+            setClicks((prev) => (prev -= 1));
+            if (clicks === 0) setPreviousCell(null);
             return;
         }
+
+        // if (clicks === 2) {
+        //     isValidSlope(previousCell, [i, j]);
+        //     selectCellsBetween(previousCell, [i, j]);
+        // }
+        if (clicks > 1) {
+            alert("no more clicks");
+            return;
+        }
+        setClicks((prev) => (prev += 1));
+
+        if (clicks === 0) setPreviousCell([i, j]);
+
+        selectCell(i, j);
+
+        // selectMultipleCells([
+        //     [2, 2],
+        //     [3, 3],
+        //     [4, 4],
+        // ]);
+    }
+
+    function deselectCell(row: number, col: number) {
+        setSelectedCells((prev) => {
+            const mySet = new Set(prev);
+            mySet.delete(`${row},${col}`);
+            return mySet;
+        });
+        setTable((prev) => {
+            const arr = [...prev];
+            arr[row][col] = 0;
+            return arr;
+        });
+    }
+
+    function selectMultipleCells(cells: number[][]) {
+        // setSelectedCells((prev) => [...prev, ...cells]);
+        setSelectedCells((prev) => {
+            const mySet = new Set(prev);
+            for (let i = 0; i < cells.length; i++) {
+                mySet.add(`${cells[i][0]},${cells[i][1]}`);
+            }
+            return mySet;
+        });
+        setTable((prev) => {
+            const arr = [...prev];
+            for (let i = 0; i < cells.length; i++) {
+                arr[cells[i][0]][cells[i][1]] = 1;
+            }
+            return arr;
+        });
+    }
+
+    function isValidSlope(prev: number[] | null, curr: number[]): boolean {
+        if (prev) setSlope([prev[0] - curr[0], prev[1] - curr[1]]);
+        return true;
+    }
+    function selectCell(row: number, col: number) {
+        setSelectedCells((prev) => {
+            const mySet = new Set(prev);
+            mySet.add(`${row},${col}`);
+            return mySet;
+        });
+
         setTable((prev) => {
             const arr = [...prev];
             arr[row][col] = 1;
             return arr;
         });
     }
+
+    function selectCellsBetween(prev?: number[] | null, curr?: number[]) {}
+
+    // console.log(selectedCells);
     return (
         <div className="relative flex flex-col justify-center items-center h-full">
             <h2 className="section-title">Skills</h2>
