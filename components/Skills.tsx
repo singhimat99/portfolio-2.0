@@ -14,9 +14,10 @@ export default function Skills({}: Props) {
     const [clicks, setClicks] = useState(0);
     const [previousCell, setPreviousCell] = useState<number[]>([]);
     const [selectedCells, setSelectedCells] = useState(() => new Set());
+    const [correctLetters, setCorrectLetters] = useState(() => new Set());
     // const [slope, setSlope] = useState<number[]>([]);
     // const randomLetters = generateRandomLetters(144);
-    const [table, setTable] = useState<number[][]>(getInitialTable());
+    const [table, setTable] = useState<number[][]>(getInitialTable(0, 7));
     // console.log("table", table);
 
     // const mySet = new Set();
@@ -88,7 +89,7 @@ export default function Skills({}: Props) {
     }
 
     function resetTable() {
-        setTable(getInitialTable());
+        setTable(getInitialTable(0, 7));
         setClicks(0);
         setPreviousCell([]);
         // setSlope([]);
@@ -157,10 +158,21 @@ export default function Skills({}: Props) {
         }
         console.log(totalCells);
         selectMultipleCells(totalCells);
+        checkWord(totalCells);
         setIsDisabled(true);
     }
 
+    function checkWord(cells: number[][]) {
+        setCorrectLetters((prev) => {
+            const letters = new Set(prev);
+            for (let i = 0; i < cells.length; i++) {
+                letters.add(`${cells[i][0]},${cells[i][1]}`);
+            }
+            return letters;
+        });
+    }
     // console.log(selectedCells);
+    console.log(correctLetters);
     return (
         <div className="relative flex flex-col justify-center items-center h-full">
             <h2 className="section-title">Skills</h2>
@@ -173,7 +185,7 @@ export default function Skills({}: Props) {
                                     return (
                                         <button
                                             key={j}
-                                            className="w-[40px] h-[40px] cursor-pointer border border-green-400 text-center table-cell align-middle"
+                                            className="w-[40px] h-[40px] cursor-pointertext-center table-cell align-middle"
                                             onClick={(e) =>
                                                 handleClick(e, i, j, cellValue)
                                             }
@@ -182,6 +194,11 @@ export default function Skills({}: Props) {
                                                     cellValue === 1
                                                         ? "red"
                                                         : "transparent",
+                                                border: correctLetters.has(
+                                                    `${i},${j}`
+                                                )
+                                                    ? "1px solid green"
+                                                    : "none",
                                             }}
                                             disabled={isDisabled}
                                         >
@@ -194,7 +211,8 @@ export default function Skills({}: Props) {
                     })}
                 </div>
                 <button
-                    className=""
+                    className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:invisible disabled:bg-slate-300 disabled:cursor-not-allowed disabled:border-none disabled:text-white"
+                    disabled={!isDisabled}
                     onClick={() => {
                         resetTable();
                         setIsDisabled(false);
@@ -220,8 +238,8 @@ function getRandomLetter(): string {
     return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
 }
 
-function getInitialTable() {
-    return new Array(5).fill(0).map((row) => new Array(5).fill(0));
+function getInitialTable(element: number | string, size: number) {
+    return new Array(size).fill(0).map((row) => new Array(size).fill(element));
 }
 
 function isValidSlope(slope: number[]): boolean {
@@ -232,3 +250,64 @@ function isValidSlope(slope: number[]): boolean {
     if (rise === run) return true;
     return false;
 }
+
+function initialWordMatrix() {
+    const skills = ["html", "css", "javascript", "tailwindcss"];
+    skills.sort((a, b) => b.length - a.length);
+    const longestWord = skills[0].length;
+    const wordMatrix: string[][] = getInitialTable("", longestWord);
+
+    // loop through skills
+    //   call getRandomPosition(skill, wordMatrix)
+    //   returns indexes and slope
+    //   use starting index and slope to add word to matrix
+    //   add each index used to add to matrix to set of correctLetters
+    //   restart loop with newly edited matrix
+
+    // nested for loop to go through through matrix
+    for (let i = 0; i < wordMatrix.length; i++) {
+        for (let j = 0; j < wordMatrix.length; j++) {
+            //  if current cell has a letter just continue
+            if (wordMatrix[i][j] !== "") continue;
+
+            //  else set cell value to getRandomLetter();
+            wordMatrix[i][j] = getRandomLetter();
+        }
+    }
+
+    // console.log(words);
+    console.log(wordMatrix);
+
+    // return matrix with wordsearch matrix
+}
+initialWordMatrix();
+function getRandomPosition(skill: string, matrix: string[][]) {
+    const slopes = {
+        q1: [
+            [0, 1],
+            [1, 0],
+            [1, 1],
+        ],
+        q2: [
+            [0, -1],
+            [1, 0],
+            [1, -1],
+        ],
+        q3: [
+            [-1, 0],
+            [0, 1],
+            [-1, 1],
+        ],
+        q4: [
+            [-1, 0],
+            [0, -1],
+            [-1, -1],
+        ],
+    };
+    const randomIdx = Math.floor(Math.random() * 2);
+
+    // [row and col] of place on matrix
+    // slope at which it should iterate
+    // returned in an object
+}
+// initialWordMap();
