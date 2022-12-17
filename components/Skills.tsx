@@ -26,7 +26,7 @@ export default function Skills({}: Props) {
     // mySet.delete("2,3");
     // const value = mySet.values();
     // console.log(mySet);
-    console.log("prev", previousCell);
+    // console.log("prev", previousCell);
     // console.log("slope", slope);
     // console.log("number selected ", number);
 
@@ -172,7 +172,7 @@ export default function Skills({}: Props) {
         });
     }
     // console.log(selectedCells);
-    console.log(correctLetters);
+    // console.log(correctLetters);
     return (
         <div className="relative flex flex-col justify-center items-center h-full">
             <h2 className="section-title">Skills</h2>
@@ -252,36 +252,100 @@ function isValidSlope(slope: number[]): boolean {
 }
 
 function initialWordMatrix() {
-    const skills = ["html", "css", "javascript", "tailwindcss"];
+    const skills = [
+        "html",
+        "css",
+        "javascript",
+        "scss",
+        "tailwind",
+        "next",
+        "react",
+        "firebase",
+    ];
     skills.sort((a, b) => b.length - a.length);
     const longestWord = skills[0].length;
     const wordMatrix: string[][] = getInitialTable("", longestWord);
+    const occupiedIndexes = new Set();
 
     // loop through skills
-    //   call getRandomPosition(skill, wordMatrix)
+    for (let idx = 0; idx < skills.length; idx++) {}
+    // getRandomPosition(skills[idx], wordMatrix, occupiedIndexes);
+    //   call getRandomPosition(skill, wordMatrix, occupiedIndexes)
     //   returns indexes and slope
     //   use starting index and slope to add word to matrix
-    //   add each index used to add to matrix to set of correctLetters
+    //   add each index used to add to matrix to set of occupiedIndexes
     //   restart loop with newly edited matrix
 
     // nested for loop to go through through matrix
-    for (let i = 0; i < wordMatrix.length; i++) {
-        for (let j = 0; j < wordMatrix.length; j++) {
-            //  if current cell has a letter just continue
-            if (wordMatrix[i][j] !== "") continue;
+    // for (let i = 0; i < wordMatrix.length; i++) {
+    //     for (let j = 0; j < wordMatrix.length; j++) {
+    //         //  if current cell has a letter just continue
+    //         if (wordMatrix[i][j] !== "") continue;
 
-            //  else set cell value to getRandomLetter();
-            wordMatrix[i][j] = getRandomLetter();
-        }
-    }
+    //         //  else set cell value to getRandomLetter();
+    //         wordMatrix[i][j] = getRandomLetter();
+    //     }
+    // }
 
     // console.log(words);
     console.log(wordMatrix);
 
     // return matrix with wordsearch matrix
 }
-initialWordMatrix();
-function getRandomPosition(skill: string, matrix: string[][]) {
+// initialWordMatrix();
+
+function getRandomPosition(skill: string, matrix: string[][], occupied: {}) {
+    let { row, col, rise, run } = getRandomSlopeAndIdx(matrix);
+
+    for (let i = 0; i < skill.length; i++) {
+        if (
+            row < 0 ||
+            row > matrix.length - 1 ||
+            col < 0 ||
+            col > matrix.length - 1
+        ) {
+            i = 0;
+            const newInfo = getRandomSlopeAndIdx(matrix);
+            row = newInfo.row;
+            col = newInfo.col;
+            rise = newInfo.rise;
+            run = newInfo.run;
+        }
+        if (matrix[row][col] !== "") {
+            i = 0;
+            const newInfo = getRandomSlopeAndIdx(matrix);
+            row = newInfo.row;
+            col = newInfo.col;
+            rise = newInfo.rise;
+            run = newInfo.run;
+        }
+        matrix[row][col] = skill[i];
+        row += run;
+        col += rise;
+    }
+    console.log(matrix);
+
+    // [row and col] of place on matrix
+    // slope at which it should iterate
+    // returned in an object
+}
+// initialWordMap();
+
+function getRandomSlopeAndIdx(matrix: string[][]) {
+    let row = Math.floor(Math.random() * matrix.length);
+    let col = Math.floor(Math.random() * matrix.length);
+    const halfway = Math.floor(matrix.length / 2);
+    const [rise, run] = getRandomSlope(row, col, halfway);
+
+    return {
+        row,
+        col,
+        rise,
+        run,
+    };
+}
+
+function getRandomSlope(row: number, col: number, halfway: number) {
     const slopes = {
         q1: [
             [0, 1],
@@ -304,10 +368,16 @@ function getRandomPosition(skill: string, matrix: string[][]) {
             [-1, -1],
         ],
     };
-    const randomIdx = Math.floor(Math.random() * 2);
+    const randomSlopeIdx = Math.floor(Math.random() * 2);
 
-    // [row and col] of place on matrix
-    // slope at which it should iterate
-    // returned in an object
+    if (row <= halfway && col <= halfway) {
+        return slopes.q1[randomSlopeIdx];
+    }
+    if (row >= halfway && col >= halfway) {
+        return slopes.q4[randomSlopeIdx];
+    }
+    if (col <= halfway) {
+        return slopes.q3[randomSlopeIdx];
+    }
+    return slopes.q2[randomSlopeIdx];
 }
-// initialWordMap();
