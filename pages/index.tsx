@@ -8,7 +8,7 @@ import Skills from "../components/Skills";
 
 export default function Home() {
     return (
-        <main className="h-screen max-w-6xl mx-auto md:snap-y md:snap-mandatory overflow-auto">
+        <main className="h-screen max-w-6xl mx-auto md:snap-y md:snap-mandatory overflow-auto scrollbar scrollbar-track-gray-500/40 scrollbar-thumb-light-highlight/40 dark:scrollbar-thumb-dark-highlight">
             <Head>
                 <title>Himat Singh</title>
             </Head>
