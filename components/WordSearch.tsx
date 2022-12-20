@@ -17,8 +17,10 @@ export default function WordSearch({ skills }: Props) {
         setCorrectLetters,
     } = useWordSearchMatrix(skills);
     const [isDisabled, setIsDisabled] = useState(false);
+    const [isCorrect, setIsCorrect] = useState(false);
     const [canReset, setCanReset] = useState(false);
     const [clicks, setClicks] = useState(0);
+    const [isFound, setIsFound] = useState(() => new Set());
     const [previousCell, setPreviousCell] = useState<number[]>([]);
     const [table, setTable] = useState<number[][]>(
         getInitialTable(0, MATRIX_SIZE)
@@ -104,7 +106,7 @@ export default function WordSearch({ skills }: Props) {
             currRun += runFactor;
             totalCells.push([currRise, currRun]);
         }
-        console.log(totalCells);
+        // console.log(totalCells);
         setTable((prev) => {
             const arr = [...prev];
             for (let i = 0; i < totalCells.length; i++) {
@@ -123,13 +125,14 @@ export default function WordSearch({ skills }: Props) {
             word += matrix[cell[0]][cell[1]];
         }
         const reversedWord = word.split("").reverse().join("");
-        console.log(word, reversedWord);
+        // console.log(word, reversedWord);
 
         if (skillsSet.has(word) || skillsSet.has(reversedWord)) failed = false;
 
         if (failed) return;
-        console.log(skillsLength);
+        // console.log(skillsLength);
         setSkillsLength((prev) => (prev -= 1));
+        setIsCorrect(true);
         setCorrectLetters((prev) => {
             const letters = new Set(prev);
             for (let i = 0; i < cells.length; i++) {
@@ -137,12 +140,35 @@ export default function WordSearch({ skills }: Props) {
             }
             return letters;
         });
-        console.log(skillsLength);
+        setIsFound((prev) => {
+            const newSet = new Set(prev);
+            newSet.add(word);
+            newSet.add(reversedWord);
+            return newSet;
+        });
+        // console.log(skillsLength);
         if (skillsLength < 1) setCanReset(true);
     }
 
     return (
-        <div className="flex flex-col justify-center items-center gap-4">
+        <div className="flex flex-col justify-center items-center gap-2 mt-4">
+            <div className="flex flex-row gap-2 tracking-wider">
+                {skills.map((skill, i) => {
+                    return (
+                        <div
+                            key={i}
+                            className="uppercase"
+                            style={{
+                                textDecorationLine: isFound.has(skill)
+                                    ? "line-through"
+                                    : "none",
+                            }}
+                        >
+                            {skill}
+                        </div>
+                    );
+                })}
+            </div>
             {matrix.length > 1 ? (
                 <div>
                     {table.map((row: Array<number>, i: number) => {
@@ -182,29 +208,34 @@ export default function WordSearch({ skills }: Props) {
                 <div>Loading...</div>
             )}
             <div className="flex flex-row justify-center gap-4">
-                <button
-                    className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:invisible disabled:bg-slate-300 disabled:cursor-not-allowed disabled:border-none disabled:text-white"
-                    disabled={!isDisabled}
-                    onClick={() => {
-                        resetTable();
-                        setIsDisabled(false);
-                    }}
-                >
-                    Try again
-                </button>
-                <button
-                    className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden"
-                    disabled={!canReset}
-                    onClick={() => {
-                        resetTable();
-                        setIsDisabled(false);
-                        setResetMatrixCount((prev) => prev + 1);
-                        setCorrectLetters(() => new Set());
-                        setCanReset(false);
-                    }}
-                >
-                    reset game
-                </button>
+                {canReset ? (
+                    <button
+                        className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden"
+                        disabled={!canReset}
+                        onClick={() => {
+                            resetTable();
+                            setIsDisabled(false);
+                            setResetMatrixCount((prev) => prev + 1);
+                            setCorrectLetters(() => new Set());
+                            setCanReset(false);
+                            setIsFound(new Set());
+                        }}
+                    >
+                        reset game
+                    </button>
+                ) : (
+                    <button
+                        className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:invisible disabled:bg-slate-300 disabled:cursor-not-allowed disabled:border-none disabled:text-white"
+                        disabled={!isDisabled || canReset}
+                        onClick={() => {
+                            resetTable();
+                            setIsDisabled(false);
+                            setIsCorrect(false);
+                        }}
+                    >
+                        {isCorrect ? "Find Next Word!" : "Try again"}
+                    </button>
+                )}
             </div>
         </div>
     );
@@ -323,8 +354,12 @@ function generateWordSearch(skills: string[]) {
 
             if (failed) continue;
 
+            let skill = word;
+            const isReversed = Math.floor(Math.random() * 2);
+            if (isReversed) skill = word.split("").reverse().join("");
+
             for (let j = 0; j < wordLength; j++) {
-                const char: string = word[j];
+                const char: string = skill[j];
 
                 const newRow: number = row + j * run;
                 const newCol: number = col + j * rise;
