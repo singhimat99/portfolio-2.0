@@ -1,12 +1,13 @@
 import React, { useState, MouseEvent, useEffect } from "react";
-
+import { Skills } from "../typings";
 type Props = {
-    skills: string[];
+    skills: Skills[] | undefined;
 };
 
 const MATRIX_SIZE = 16;
 
 export default function WordSearch({ skills }: Props) {
+    if (!skills) return <div>Loading...</div>;
     const {
         matrix,
         skillsSet,
@@ -164,7 +165,7 @@ export default function WordSearch({ skills }: Props) {
                                     : "none",
                             }}
                         >
-                            {skill}
+                            {skill.title}
                         </div>
                     );
                 })}
@@ -241,7 +242,7 @@ export default function WordSearch({ skills }: Props) {
     );
 }
 
-function useWordSearchMatrix(skills: string[]) {
+function useWordSearchMatrix(skills: Skills[]) {
     const [matrix, setMatrix] = useState<string[][]>([[]]);
     const [skillsSet, setSkillsSet] = useState(() => new Set());
     const [resetMatrixCount, setResetMatrixCount] = useState(0);
@@ -286,8 +287,8 @@ function isValidSlope(slope: number[]): boolean {
     return false;
 }
 
-function generateWordSearch(skills: string[]) {
-    const words = skills.map((skill) => skill.toLowerCase());
+function generateWordSearch(skills: Skills[]) {
+    const words = skills.map((skill) => skill.title.toLowerCase());
     words.sort((a, b) => b.length - a.length);
     // const longestWord: number = words[0].length;
     const wordMatrix: string[][] = getInitialTable("_", MATRIX_SIZE);

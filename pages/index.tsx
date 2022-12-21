@@ -1,12 +1,26 @@
-import { useEffect } from "react";
+import { GetStaticProps } from "next";
 import Head from "next/head";
 import About from "../components/About";
 import Contact from "../components/Contact";
 import Hero from "../components/Hero";
-import Projects from "../components/Projects";
-import Skills from "../components/Skills";
+import ProjectsSection from "../components/ProjectsSection";
+import SkillsSection from "../components/SkillsSection";
+import { Skills, PageInfo, Socials, Projects } from "../typings";
+import {
+    fetchPageInfo,
+    fetchProjects,
+    fetchSkills,
+    fetchSocials,
+} from "../utils/fetchData";
 
-export default function Home() {
+type Props = {
+    pageInfo?: PageInfo | undefined;
+    projects?: Projects[];
+    skills?: Skills[];
+    socials?: Socials[];
+};
+
+export default function Home({ pageInfo, skills, projects, socials }: Props) {
     return (
         <main className="h-screen max-w-6xl mx-auto md:snap-y md:snap-mandatory overflow-auto scrollbar scrollbar-track-gray-500/40 scrollbar-thumb-light-highlight/40 dark:scrollbar-thumb-dark-highlight">
             <Head>
@@ -14,7 +28,7 @@ export default function Home() {
             </Head>
 
             {/* Hero  */}
-            <Hero />
+            <Hero socials={socials} />
 
             <section
                 id="about"
@@ -26,13 +40,13 @@ export default function Home() {
                 id="projects"
                 className="w-full h-screen snap-center border border-purple-500"
             >
-                <Projects />
+                <ProjectsSection projects={projects} />
             </section>
             <section
                 id="skills"
                 className="w-full h-screen snap-start border border-green-500"
             >
-                <Skills />
+                <SkillsSection skills={skills} />
             </section>
             <section
                 id="contact"
@@ -48,3 +62,20 @@ export default function Home() {
         </main>
     );
 }
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+    const pageInfo: PageInfo = await fetchPageInfo();
+    const projects: Projects[] = await fetchProjects();
+    const skills: Skills[] = await fetchSkills();
+    const socials: Socials[] = await fetchSocials();
+
+    return {
+        props: {
+            pageInfo,
+            projects,
+            skills,
+            socials,
+        },
+        revalidate: 10,
+    };
+};
