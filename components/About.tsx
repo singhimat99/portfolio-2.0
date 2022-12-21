@@ -1,10 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import portrait from "../public/profile-pic.png";
+import { PageInfo } from "../typings";
 
-type Props = {};
+type Props = {
+    pageInfo: PageInfo | undefined;
+};
 
-export default function About({}: Props) {
+export default function About({ pageInfo }: Props) {
     return (
         <div className="flex flex-col justify-center items-center md:gap-8">
             <h2 className="section-title">About</h2>

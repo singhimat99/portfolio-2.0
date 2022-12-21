@@ -22,19 +22,19 @@ type Props = {
 
 export default function Home({ pageInfo, skills, projects, socials }: Props) {
     return (
-        <main className="h-screen max-w-6xl mx-auto md:snap-y md:snap-mandatory overflow-auto scrollbar scrollbar-track-gray-500/40 scrollbar-thumb-light-highlight/40 dark:scrollbar-thumb-dark-highlight">
+        <main className="h-screen max-w-6xl mx-auto md:snap-y md:snap-mandatory overflow-auto ">
             <Head>
                 <title>Himat Singh</title>
             </Head>
 
             {/* Hero  */}
-            <Hero socials={socials} />
+            <Hero socials={socials} pageInfo={pageInfo} />
 
             <section
                 id="about"
                 className="w-full snap-center border border-red-500"
             >
-                <About />
+                <About pageInfo={pageInfo} />
             </section>
             <section
                 id="projects"

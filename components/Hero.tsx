@@ -4,15 +4,16 @@ import Link from "next/link";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import portrait from "../public/profile-pic.png";
 import { useTheme } from "../pages/_app";
-import { Socials } from "../typings";
+import { PageInfo, Socials } from "../typings";
 
 import BackgroundAnimation from "./BackgroundAnimation";
 
 type Props = {
     socials: Socials[] | undefined;
+    pageInfo: PageInfo | undefined;
 };
 
-export default function Hero({ socials }: Props) {
+export default function Hero({ socials, pageInfo }: Props) {
     const [text] = useTypewriter({
         words: [
             "Hey, My name is Himat Singh",

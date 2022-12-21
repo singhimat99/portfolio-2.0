@@ -9,7 +9,6 @@ type Props = {
 
 export default function ProjectsSection({ projects }: Props) {
     const projectsTemp = [1, 2, 3, 4, 5];
-    console.log(projects);
     return (
         <div className="relative flex flex-col justify-center h-full max-w-full overflow-hidden overscroll-y-none">
             <h2 className="section-title">Projects</h2>

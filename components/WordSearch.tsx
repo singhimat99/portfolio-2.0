@@ -153,7 +153,7 @@ export default function WordSearch({ skills }: Props) {
 
     return (
         <div className="flex flex-col justify-center items-center gap-2 mt-4">
-            <div className="flex flex-row gap-2 tracking-wider">
+            <div className="flex flex-row flex-wrap gap-2 tracking-wider w-3/4">
                 {skills.map((skill, i) => {
                     return (
                         <div
@@ -251,9 +251,9 @@ function useWordSearchMatrix(skills: Skills[]) {
 
     useEffect(() => {
         const { wordMatrix } = generateWordSearch(skills);
-
+        const skillsTitles = skills.map((skills) => skills.title);
         setMatrix(wordMatrix);
-        setSkillsSet((prev) => new Set(skills));
+        setSkillsSet((prev) => new Set(skillsTitles));
         setSkillsLength(skills.length - 1);
         setCorrectLetters(new Set());
     }, [resetMatrixCount, skills]);
