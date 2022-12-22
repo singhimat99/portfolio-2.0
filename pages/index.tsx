@@ -2,6 +2,7 @@ import { GetStaticProps } from "next";
 import Head from "next/head";
 import About from "../components/About";
 import Contact from "../components/Contact";
+import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import ProjectsSection from "../components/ProjectsSection";
 import SkillsSection from "../components/SkillsSection";
@@ -54,11 +55,7 @@ export default function Home({ pageInfo, skills, projects, socials }: Props) {
             >
                 <Contact />
             </section>
-            <footer className="relative w-screen h-[30vh] snap-end bg-black text-white border border-red-500">
-                <ul>
-                    <li>Home</li>
-                </ul>
-            </footer>
+            <Footer socials={socials} />
         </main>
     );
 }

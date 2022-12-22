@@ -4,7 +4,7 @@ type Props = {
     skills: Skills[] | undefined;
 };
 
-const MATRIX_SIZE = 16;
+const MATRIX_SIZE = 20;
 
 export default function WordSearch({ skills }: Props) {
     if (!skills) return <div>Loading...</div>;
@@ -16,12 +16,14 @@ export default function WordSearch({ skills }: Props) {
         setSkillsLength,
         correctLetters,
         setCorrectLetters,
-    } = useWordSearchMatrix(skills);
+        isFound,
+        setIsFound,
+    } = useWordSearch(skills);
+
     const [isDisabled, setIsDisabled] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [canReset, setCanReset] = useState(false);
     const [clicks, setClicks] = useState(0);
-    const [isFound, setIsFound] = useState(() => new Set());
     const [previousCell, setPreviousCell] = useState<number[]>([]);
     const [table, setTable] = useState<number[][]>(
         getInitialTable(0, MATRIX_SIZE)
@@ -160,7 +162,7 @@ export default function WordSearch({ skills }: Props) {
                             key={i}
                             className="uppercase"
                             style={{
-                                textDecorationLine: isFound.has(skill)
+                                textDecorationLine: isFound.has(skill.title)
                                     ? "line-through"
                                     : "none",
                             }}
@@ -179,7 +181,7 @@ export default function WordSearch({ skills }: Props) {
                                     return (
                                         <button
                                             key={j}
-                                            className="w-[25px] h-[25px] uppercase cursor-pointertext-center table-cell align-middle"
+                                            className="w-[20px] h-[20px] uppercase cursor-pointertext-center table-cell align-middle"
                                             onClick={(e) =>
                                                 handleClick(e, i, j, cellValue)
                                             }
@@ -242,12 +244,13 @@ export default function WordSearch({ skills }: Props) {
     );
 }
 
-function useWordSearchMatrix(skills: Skills[]) {
+function useWordSearch(skills: Skills[]) {
     const [matrix, setMatrix] = useState<string[][]>([[]]);
     const [skillsSet, setSkillsSet] = useState(() => new Set());
     const [resetMatrixCount, setResetMatrixCount] = useState(0);
     const [skillsLength, setSkillsLength] = useState(0);
     const [correctLetters, setCorrectLetters] = useState(() => new Set());
+    const [isFound, setIsFound] = useState(() => new Set());
 
     useEffect(() => {
         const { wordMatrix } = generateWordSearch(skills);
@@ -256,6 +259,7 @@ function useWordSearchMatrix(skills: Skills[]) {
         setSkillsSet((prev) => new Set(skillsTitles));
         setSkillsLength(skills.length - 1);
         setCorrectLetters(new Set());
+        setIsFound(new Set());
     }, [resetMatrixCount, skills]);
 
     return {
@@ -267,6 +271,8 @@ function useWordSearchMatrix(skills: Skills[]) {
         setSkillsLength,
         correctLetters,
         setCorrectLetters,
+        isFound,
+        setIsFound,
     };
 }
 
@@ -356,8 +362,8 @@ function generateWordSearch(skills: Skills[]) {
             if (failed) continue;
 
             let skill = word;
-            const isReversed = Math.floor(Math.random() * 2);
-            if (isReversed) skill = word.split("").reverse().join("");
+            // const isReversed = Math.floor(Math.random() * 2);
+            // if (isReversed) skill = word.split("").reverse().join("");
 
             for (let j = 0; j < wordLength; j++) {
                 const char: string = skill[j];
