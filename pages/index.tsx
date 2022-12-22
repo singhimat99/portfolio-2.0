@@ -23,39 +23,38 @@ type Props = {
 
 export default function Home({ pageInfo, skills, projects, socials }: Props) {
     return (
-        <main className="h-screen max-w-6xl mx-auto md:snap-y md:snap-mandatory overflow-auto ">
-            <Head>
-                <title>Himat Singh</title>
-            </Head>
+        <main className="w-full flex justify-center scrollbar md:snap-y md:snap-mandatory overflow-y-scroll scrollbar-track-gray-500/40 scrollbar-thumb-light-highlight/40 dark:scrollbar-thumb-dark-highlight">
+            <div className="min-h-screen max-w-6xl">
+                <Head>
+                    <title>Himat Singh</title>
+                </Head>
 
-            {/* Hero  */}
-            <Hero socials={socials} pageInfo={pageInfo} />
+                {/* Hero  */}
+                <Hero socials={socials} pageInfo={pageInfo} />
 
-            <section
-                id="about"
-                className="w-full snap-center border border-red-500"
-            >
-                <About pageInfo={pageInfo} />
-            </section>
-            <section
-                id="projects"
-                className="w-full h-screen snap-center border border-purple-500"
-            >
-                <ProjectsSection projects={projects} />
-            </section>
-            <section
-                id="skills"
-                className="w-full h-screen snap-start border border-green-500"
-            >
-                <SkillsSection skills={skills} />
-            </section>
-            <section
-                id="contact"
-                className="w-full snap-start border border-blue-500"
-            >
-                <Contact />
-            </section>
-            <Footer socials={socials} />
+                <section id="about" className="w-full snap-center ">
+                    <About pageInfo={pageInfo} />
+                </section>
+                <section
+                    id="projects"
+                    className="w-full h-screen snap-center border border-purple-500"
+                >
+                    <ProjectsSection projects={projects} />
+                </section>
+                <section
+                    id="skills"
+                    className="w-full h-screen snap-start border border-green-500"
+                >
+                    <SkillsSection skills={skills} />
+                </section>
+                <section
+                    id="contact"
+                    className="w-full snap-start border border-blue-500"
+                >
+                    <Contact />
+                </section>
+                <Footer socials={socials} />
+            </div>
         </main>
     );
 }

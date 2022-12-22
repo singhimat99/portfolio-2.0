@@ -9,7 +9,7 @@ module.exports = {
         extend: {
             colors: {
                 // Light theme colors
-                "light-primary": "#eeeeed",
+                "light-primary": "#ffffff",
                 "light-secondary": "#2b2c34",
                 "light-highlight": "#6246ea",
                 "light-tertiary": "#d1d1e9",
@@ -23,6 +23,7 @@ module.exports = {
             },
             fontFamily: {
                 body: ["Barlow"],
+                header: ["Cedarville Cursive"],
             },
             keyframes: {
                 ripple: {

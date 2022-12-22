@@ -9,7 +9,7 @@ type Props = {
 
 export default function Footer({ socials }: Props) {
     return (
-        <footer className="relative w-screen h-[30vh] flex flex-row justify-center items-center gap-4 snap-end bg-light-primary dark:bg-dark-primary border border-red-500 border-t-2 border-t-neutral-500">
+        <footer className="relative h-[30vh] flex flex-row justify-center items-center gap-4 snap-end bg-light-primary dark:bg-dark-primary border border-red-500 border-t-2 border-t-neutral-500">
             <ul className="flex flex-col">
                 {socials?.map((social) => {
                     return (
@@ -23,7 +23,10 @@ export default function Footer({ socials }: Props) {
                     );
                 })}
             </ul>
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-2">
+                <li>
+                    <Link href="#hero">Home</Link>
+                </li>
                 <li>
                     <Link href="#about">About</Link>
                 </li>
