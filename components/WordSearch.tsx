@@ -1,5 +1,7 @@
 import React, { useState, MouseEvent, useEffect } from "react";
 import { Skills } from "../typings";
+import Image from "next/image";
+import { urlFor } from "../sanity";
 type Props = {
     skills: Skills[] | undefined;
 };
@@ -19,7 +21,7 @@ export default function WordSearch({ skills }: Props) {
         isFound,
         setIsFound,
     } = useWordSearch(skills);
-
+    /////// use reducer for easy medium hard case and use that stat to determine the sixe of the board and words
     const [isDisabled, setIsDisabled] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [canReset, setCanReset] = useState(false);
@@ -154,8 +156,8 @@ export default function WordSearch({ skills }: Props) {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center gap-2 mt-4">
-            <div className="flex flex-row flex-wrap gap-2 tracking-wider w-3/4">
+        <>
+            <div className="flex flex-row flex-wrap justify-center gap-2 tracking-wider w-2/4">
                 {skills.map((skill, i) => {
                     return (
                         <div
@@ -172,75 +174,109 @@ export default function WordSearch({ skills }: Props) {
                     );
                 })}
             </div>
-            {matrix.length > 1 ? (
-                <div>
-                    {table.map((row: Array<number>, i: number) => {
-                        return (
-                            <div className="flex" key={i}>
-                                {row.map((cellValue: number, j: number) => {
-                                    return (
-                                        <button
-                                            key={j}
-                                            className="w-[20px] h-[20px] uppercase cursor-pointertext-center table-cell align-middle"
-                                            onClick={(e) =>
-                                                handleClick(e, i, j, cellValue)
-                                            }
-                                            style={{
-                                                backgroundColor:
-                                                    cellValue === 1
-                                                        ? "red"
-                                                        : "transparent",
-                                                border: correctLetters.has(
-                                                    `${i},${j}`
-                                                )
-                                                    ? "1px solid darkgreen"
-                                                    : "none",
-                                            }}
-                                            disabled={isDisabled}
-                                        >
-                                            {/* {`${i}${j}`} */}
-                                            {matrix[i][j]}
-                                        </button>
-                                    );
-                                })}
-                            </div>
-                        );
-                    })}
+            <div className="relative flex flex-col md:flex-row justify-center items-center border border-red-500 w-full">
+                <div className="flex md:flex-col gap-4 md:w-40 min-w-40 border border-red-500">
+                    <button className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden">
+                        easy
+                    </button>
+                    <button className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden">
+                        medium
+                    </button>
+                    <button className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden">
+                        hard
+                    </button>
                 </div>
-            ) : (
-                <div>Loading...</div>
-            )}
-            <div className="flex flex-row justify-center gap-4">
-                {canReset ? (
-                    <button
-                        className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden"
-                        disabled={!canReset}
-                        onClick={() => {
-                            resetTable();
-                            setIsDisabled(false);
-                            setResetMatrixCount((prev) => prev + 1);
-                            setCorrectLetters(() => new Set());
-                            setCanReset(false);
-                            setIsFound(new Set());
-                        }}
-                    >
-                        reset game
-                    </button>
+                {matrix.length > 1 ? (
+                    <div className="border border-red-500">
+                        {table.map((row: Array<number>, i: number) => {
+                            return (
+                                <div className="flex" key={i}>
+                                    {row.map((cellValue: number, j: number) => {
+                                        return (
+                                            <button
+                                                key={j}
+                                                className="w-[20px] h-[20px] uppercase cursor-pointertext-center table-cell align-middle"
+                                                onClick={(e) =>
+                                                    handleClick(
+                                                        e,
+                                                        i,
+                                                        j,
+                                                        cellValue
+                                                    )
+                                                }
+                                                style={{
+                                                    backgroundColor:
+                                                        cellValue === 1
+                                                            ? "red"
+                                                            : "transparent",
+                                                    border: correctLetters.has(
+                                                        `${i},${j}`
+                                                    )
+                                                        ? "1px solid darkgreen"
+                                                        : "none",
+                                                }}
+                                                disabled={isDisabled}
+                                            >
+                                                {/* {`${i}${j}`} */}
+                                                {matrix[i][j]}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            );
+                        })}
+                    </div>
                 ) : (
-                    <button
-                        className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:invisible disabled:bg-slate-300 disabled:cursor-not-allowed disabled:border-none disabled:text-white"
-                        disabled={!isDisabled || canReset}
-                        onClick={() => {
-                            resetTable();
-                            setIsDisabled(false);
-                            setIsCorrect(false);
-                        }}
-                    >
-                        {isCorrect ? "Find Next Word!" : "Try again"}
-                    </button>
+                    <div>Loading...</div>
                 )}
+                <div className="flex md:flex-col justify-center gap-4 w-40">
+                    {canReset ? (
+                        <button
+                            className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden"
+                            // disabled={!canReset}
+                            onClick={() => {
+                                resetTable();
+                                setIsDisabled(false);
+                                setResetMatrixCount((prev) => prev + 1);
+                                setCorrectLetters(() => new Set());
+                                setCanReset(false);
+                                setIsFound(new Set());
+                            }}
+                        >
+                            reset game
+                        </button>
+                    ) : (
+                        <button
+                            className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:invisible disabled:bg-slate-300 disabled:cursor-not-allowed disabled:border-none disabled:text-white"
+                            disabled={!isDisabled || canReset}
+                            onClick={() => {
+                                resetTable();
+                                setIsDisabled(false);
+                                setIsCorrect(false);
+                            }}
+                        >
+                            {isCorrect ? "Find Next Word!" : "Try again"}
+                        </button>
+                    )}
+                </div>
             </div>
-        </div>
+            <ul className="flex gap-4 justify-center items-center">
+                {skills?.map((skill) => {
+                    let grayscale = isFound.has(skill.title) ? "grayscale" : "";
+                    return (
+                        <li key={skill._id}>
+                            <Image
+                                src={urlFor(skill.skillImage).url()}
+                                width={200}
+                                height={200}
+                                alt={`image of ${skill.title}`}
+                                className={`w-16 ${grayscale}`}
+                            />
+                        </li>
+                    );
+                })}
+            </ul>
+        </>
     );
 }
 
