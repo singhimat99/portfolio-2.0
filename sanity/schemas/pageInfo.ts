@@ -16,8 +16,8 @@ export default defineType({
       type: 'string',
     },
     {
-      name: 'heroImage',
-      title: 'Image',
+      name: 'professionalImage',
+      title: 'ProfessionalImage',
       type: 'image',
       options: {
         hotspot: true,

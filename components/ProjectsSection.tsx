@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import portrait from "../public/profile-pic.png";
 import { Projects } from "../typings";
+import { urlFor } from "../sanity";
 
 type Props = {
     projects: Projects[] | undefined;
@@ -21,7 +22,9 @@ export default function ProjectsSection({ projects }: Props) {
                         >
                             <div className="relative">
                                 <Image
-                                    src={portrait}
+                                    src={urlFor(project?.projectImage).url()}
+                                    width={240}
+                                    height={240}
                                     alt=""
                                     className="w-60 md:w-80"
                                 />

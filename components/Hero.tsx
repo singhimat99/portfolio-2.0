@@ -7,6 +7,7 @@ import { useTheme } from "../pages/_app";
 import { PageInfo, Socials } from "../typings";
 
 import BackgroundAnimation from "./BackgroundAnimation";
+import { urlFor } from "../sanity";
 
 type Props = {
     socials: Socials[] | undefined;
@@ -24,6 +25,7 @@ export default function Hero({ socials, pageInfo }: Props) {
         delaySpeed: 2000,
     });
     const { isDark } = useTheme();
+
     return (
         <section
             id="hero"
@@ -32,12 +34,14 @@ export default function Hero({ socials, pageInfo }: Props) {
             {isDark ? <BackgroundAnimation /> : null}
             <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-full flex flex-col items-center justify-center mx-auto">
                 <Image
-                    src={portrait}
+                    src={urlFor(pageInfo?.profilePic)?.url()}
+                    width={200}
+                    height={200}
                     alt="image of Himat Singh"
-                    className="w-48 md:w-64 object-fill rounded-full grayscale "
+                    className="w-36 md:w-48 object-fill rounded-full grayscale "
                 />
                 <h2 className="uppercase text-sm md:text-base text-center font-semibold text-light-secondary dark:text-gray-600 tracking-[10px] my-4">
-                    Self-taught Programmer
+                    {pageInfo?.role}
                 </h2>
                 <h1 className="text-3xl md:text-6xl mb-4 text-center font-bold">
                     <span>{text}</span>

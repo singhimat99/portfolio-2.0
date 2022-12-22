@@ -42,5 +42,5 @@ export interface PageInfo extends SanityBody {
     phoneNumber: string;
     role: string;
     profilePic: Image;
-    heroImage: Image;
+    professionalImage: Image;
 }
