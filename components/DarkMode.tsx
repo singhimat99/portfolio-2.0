@@ -53,7 +53,7 @@ const DarkMode = (props: Props) => {
     return (
         <div style={styles.container}>
             <button
-                className="rounded-lg border-gray-500 border-2 p-2 hover:scale-110 transition-transform"
+                className="rounded-lg border-gray-500 border-2 p-2 hover:scale-110 transition-transform active:bg-gray-500/40"
                 onClick={toggleTheme}
             >
                 {isDark ? (
