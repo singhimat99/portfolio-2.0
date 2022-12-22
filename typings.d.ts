@@ -21,6 +21,7 @@ export interface Socials extends SanityBody {
 export interface Skills extends SanityBody {
     _type: "skills";
     title: string;
+    skillImage: Image;
 }
 
 export interface Projects extends SanityBody {
