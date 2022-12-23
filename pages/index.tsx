@@ -15,7 +15,7 @@ import {
 } from "../utils/fetchData";
 
 type Props = {
-    pageInfo?: PageInfo | undefined;
+    pageInfo?: PageInfo;
     projects?: Projects[];
     skills?: Skills[];
     socials?: Socials[];
@@ -32,7 +32,7 @@ export default function Home({ pageInfo, skills, projects, socials }: Props) {
                 {/* Hero  */}
                 <Hero socials={socials} pageInfo={pageInfo} />
 
-                <section id="about" className="w-full snap-center ">
+                <section id="about" className="w-full snap-center">
                     <About pageInfo={pageInfo} />
                 </section>
                 <section id="projects" className="w-full h-screen snap-center">

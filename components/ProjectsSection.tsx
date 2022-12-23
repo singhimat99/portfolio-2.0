@@ -13,7 +13,7 @@ export default function ProjectsSection({ projects }: Props) {
     return (
         <div className="relative flex flex-col justify-center h-full max-w-full overflow-hidden overscroll-y-none">
             <h2 className="section-title">Projects</h2>
-            <div className="border border-red-500 relative w-full flex flex-row overflow-x-scroll over-y-hidden snap-x snap-mandatory z-10">
+            <div className="relative w-full flex flex-row overflow-x-scroll over-y-hidden snap-x snap-mandatory z-10">
                 {projects ? (
                     projects.map((project) => (
                         <div
@@ -38,6 +38,23 @@ export default function ProjectsSection({ projects }: Props) {
                                 </h3>
                                 <p className="text-center">{project.summary}</p>
                             </div>
+                            <ul className="flex justify-center items-center gap-2">
+                                {project.technologies.map((skill) => {
+                                    return (
+                                        <li key={skill._id}>
+                                            <Image
+                                                src={urlFor(
+                                                    skill?.skillImage
+                                                )?.url()}
+                                                width={200}
+                                                height={200}
+                                                alt={`image of ${skill.title}`}
+                                                className={`w-10 md:w-16`}
+                                            />
+                                        </li>
+                                    );
+                                })}
+                            </ul>
                         </div>
                     ))
                 ) : (

@@ -44,7 +44,7 @@ export default function Contact({}: Props) {
         });
     };
     return (
-        <div className="relative flex flex-col justify-center items-center min-h-screen border py-20 border-red-500">
+        <div className="relative flex flex-col justify-center items-center min-h-screen py-20 ">
             <h2 className="section-title">Contact</h2>
             <div className="w-[80%] md:max-w-xl dark:text-dark-secondary/90">
                 <p className="text-center text-base">
