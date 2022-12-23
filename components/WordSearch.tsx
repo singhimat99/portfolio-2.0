@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent, useEffect } from "react";
+import React, { useState, MouseEvent, useEffect, useReducer } from "react";
 import { Skills } from "../typings";
 import Image from "next/image";
 import { urlFor } from "../sanity";
@@ -20,16 +20,16 @@ export default function WordSearch({ skills }: Props) {
         setCorrectLetters,
         isFound,
         setIsFound,
+        difficulty,
+        setDifficulty,
+        table,
+        setTable,
     } = useWordSearch(skills);
-    /////// use reducer for easy medium hard case and use that stat to determine the sixe of the board and words
     const [isDisabled, setIsDisabled] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [canReset, setCanReset] = useState(false);
     const [clicks, setClicks] = useState(0);
     const [previousCell, setPreviousCell] = useState<number[]>([]);
-    const [table, setTable] = useState<number[][]>(
-        getInitialTable(0, MATRIX_SIZE)
-    );
 
     function handleClick(
         e: MouseEvent<HTMLButtonElement>,
@@ -75,8 +75,52 @@ export default function WordSearch({ skills }: Props) {
         }
     }
 
-    function resetTable() {
-        setTable(getInitialTable(0, MATRIX_SIZE));
+    function handleDifficultyChange(difficulty: string) {
+        let factor: number;
+        let numberOfWords: number;
+        let pixelSize: number;
+        let fontSize: number;
+        switch (difficulty) {
+            case "medium":
+                factor = 4;
+                numberOfWords = 7;
+                pixelSize = 22;
+                fontSize = 14;
+                break;
+
+            case "hard":
+                factor = 0;
+                numberOfWords = 100;
+                pixelSize = 17;
+                fontSize = 12;
+                break;
+
+            default:
+                factor = 8;
+                numberOfWords = 5;
+                pixelSize = 28;
+                fontSize = 16;
+                break;
+        }
+        setDifficulty((prev) => {
+            return {
+                factor: factor,
+                level: difficulty,
+                pixelSize: pixelSize,
+                numberOfWords: numberOfWords,
+                fontSize: fontSize,
+            };
+        });
+        resetTable(true);
+        setIsDisabled(false);
+        setCorrectLetters(() => new Set());
+        setCanReset(false);
+        setIsFound(new Set());
+    }
+
+    function resetTable(tryAgain?: boolean) {
+        !tryAgain &&
+            setTable(getInitialTable(0, MATRIX_SIZE - difficulty.factor));
         setClicks(0);
         setPreviousCell([]);
         // setSlope([]);
@@ -130,12 +174,11 @@ export default function WordSearch({ skills }: Props) {
             word += matrix[cell[0]][cell[1]];
         }
         const reversedWord = word.split("").reverse().join("");
-        // console.log(word, reversedWord);
 
         if (skillsSet.has(word) || skillsSet.has(reversedWord)) failed = false;
 
         if (failed) return;
-        // console.log(skillsLength);
+
         setSkillsLength((prev) => (prev -= 1));
         setIsCorrect(true);
         setCorrectLetters((prev) => {
@@ -176,13 +219,28 @@ export default function WordSearch({ skills }: Props) {
             </div>
             <div className="relative flex flex-col md:flex-row justify-center items-center border border-red-500 w-full">
                 <div className="flex md:flex-col gap-4 md:w-40 min-w-40 border border-red-500">
-                    <button className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden">
+                    <button
+                        onClick={() => {
+                            handleDifficultyChange("easy");
+                        }}
+                        className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden"
+                    >
                         easy
                     </button>
-                    <button className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden">
+                    <button
+                        onClick={() => {
+                            handleDifficultyChange("medium");
+                        }}
+                        className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden"
+                    >
                         medium
                     </button>
-                    <button className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden">
+                    <button
+                        onClick={() => {
+                            handleDifficultyChange("hard");
+                        }}
+                        className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden"
+                    >
                         hard
                     </button>
                 </div>
@@ -192,10 +250,11 @@ export default function WordSearch({ skills }: Props) {
                             return (
                                 <div className="flex" key={i}>
                                     {row.map((cellValue: number, j: number) => {
+                                        const { pixelSize } = difficulty;
                                         return (
                                             <button
                                                 key={j}
-                                                className="w-[20px] h-[20px] uppercase cursor-pointertext-center table-cell align-middle"
+                                                className="uppercase cursor-pointer text-center table-cell align-middle"
                                                 onClick={(e) =>
                                                     handleClick(
                                                         e,
@@ -205,6 +264,8 @@ export default function WordSearch({ skills }: Props) {
                                                     )
                                                 }
                                                 style={{
+                                                    width: `${pixelSize}px`,
+                                                    height: `${pixelSize}px`,
                                                     backgroundColor:
                                                         cellValue === 1
                                                             ? "red"
@@ -287,16 +348,33 @@ function useWordSearch(skills: Skills[]) {
     const [skillsLength, setSkillsLength] = useState(0);
     const [correctLetters, setCorrectLetters] = useState(() => new Set());
     const [isFound, setIsFound] = useState(() => new Set());
+    const [difficulty, setDifficulty] = useState({
+        factor: 8,
+        level: "easy",
+        pixelSize: 28,
+        numberOfWords: 5,
+        fontSize: 16,
+    });
+    const [table, setTable] = useState<number[][]>(
+        getInitialTable(0, MATRIX_SIZE - difficulty.factor)
+    );
 
     useEffect(() => {
-        const { wordMatrix } = generateWordSearch(skills);
-        const skillsTitles = skills.map((skills) => skills.title);
+        const skillsTitles = skills
+            .filter((skills, i) => i < difficulty.numberOfWords)
+            .map((skill) => skill.title);
+        console.log(skillsTitles);
+        setTable(getInitialTable(0, MATRIX_SIZE - difficulty.factor));
+        const { wordMatrix } = generateWordSearch(
+            skillsTitles,
+            difficulty.factor
+        );
         setMatrix(wordMatrix);
-        setSkillsSet((prev) => new Set(skillsTitles));
-        setSkillsLength(skills.length - 1);
+        setSkillsSet(new Set(skillsTitles));
+        setSkillsLength(skillsTitles.length - 1);
         setCorrectLetters(new Set());
         setIsFound(new Set());
-    }, [resetMatrixCount, skills]);
+    }, [resetMatrixCount, skills, difficulty]);
 
     return {
         matrix,
@@ -309,6 +387,10 @@ function useWordSearch(skills: Skills[]) {
         setCorrectLetters,
         isFound,
         setIsFound,
+        difficulty,
+        setDifficulty,
+        table,
+        setTable,
     };
 }
 
@@ -329,11 +411,12 @@ function isValidSlope(slope: number[]): boolean {
     return false;
 }
 
-function generateWordSearch(skills: Skills[]) {
-    const words = skills.map((skill) => skill.title.toLowerCase());
+function generateWordSearch(skills: string[], difficultyFactor?: number) {
+    const words = skills.map((skill) => skill.toLowerCase());
     words.sort((a, b) => b.length - a.length);
     // const longestWord: number = words[0].length;
-    const wordMatrix: string[][] = getInitialTable("_", MATRIX_SIZE);
+    const matrixSize = MATRIX_SIZE - (difficultyFactor || 0);
+    const wordMatrix: string[][] = getInitialTable("_", matrixSize);
     const matrixLength: number = wordMatrix.length;
     // const skillsSet = new Set(skills);
     const orientations = ["horizontal", "vertical", "diagnolup", "diagnoldown"];
