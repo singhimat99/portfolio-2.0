@@ -8,7 +8,7 @@ type Props = {
     pageInfo: PageInfo | undefined;
 };
 export default function About({ pageInfo }: Props) {
-    console.log(urlFor(pageInfo?.professionalImage).url());
+    // console.log(urlFor(pageInfo?.professionalImage).url());
     return (
         <div className="flex flex-col justify-center items-center md:gap-4">
             <h2 className="section-title">About</h2>

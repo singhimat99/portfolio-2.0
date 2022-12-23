@@ -37,19 +37,19 @@ export default function Home({ pageInfo, skills, projects, socials }: Props) {
                 </section>
                 <section
                     id="projects"
-                    className="w-full h-screen snap-center border border-purple-500"
+                    className="w-full h-screen snap-center border "
                 >
                     <ProjectsSection projects={projects} />
                 </section>
                 <section
                     id="skills"
-                    className="w-full h-screen snap-start border border-green-500"
+                    className="w-full h-screen snap-start border "
                 >
                     <SkillsSection skills={skills} />
                 </section>
                 <section
                     id="contact"
-                    className="w-full snap-start border border-blue-500"
+                    className="w-full snap-start border "
                 >
                     <Contact />
                 </section>

@@ -24,10 +24,16 @@ export default function WordSearch({ skills }: Props) {
         setDifficulty,
         table,
         setTable,
+        skillsList,
     } = useWordSearch(skills);
     const [isDisabled, setIsDisabled] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [canReset, setCanReset] = useState(false);
+    const [difficultySelected, setDifficultySelected] = useState({
+        easy: true,
+        medium: false,
+        hard: false,
+    });
     const [clicks, setClicks] = useState(0);
     const [previousCell, setPreviousCell] = useState<number[]>([]);
 
@@ -91,8 +97,8 @@ export default function WordSearch({ skills }: Props) {
             case "hard":
                 factor = 0;
                 numberOfWords = 100;
-                pixelSize = 17;
-                fontSize = 12;
+                pixelSize = 18;
+                fontSize = 11;
                 break;
 
             default:
@@ -201,60 +207,82 @@ export default function WordSearch({ skills }: Props) {
     return (
         <>
             <div className="flex flex-row flex-wrap justify-center gap-2 tracking-wider w-2/4">
-                {skills.map((skill, i) => {
+                {skillsList.map((skill, i) => {
                     return (
                         <div
                             key={i}
                             className="uppercase"
                             style={{
-                                textDecorationLine: isFound.has(skill.title)
+                                textDecorationLine: isFound.has(skill)
                                     ? "line-through"
                                     : "none",
                             }}
                         >
-                            {skill.title}
+                            {skill}
                         </div>
                     );
                 })}
             </div>
-            <div className="relative flex flex-col md:flex-row justify-center items-center border border-red-500 w-full">
-                <div className="flex md:flex-col gap-4 md:w-40 min-w-40 border border-red-500">
+            <div className="relative flex flex-col md:flex-row justify-center items-center  w-full">
+                <div className="flex md:flex-col gap-4 md:w-48 min-w-40 mr-4 my-4 ">
                     <button
                         onClick={() => {
                             handleDifficultyChange("easy");
+                            setDifficultySelected((prev) => ({
+                                easy: true,
+                                medium: false,
+                                hard: false,
+                            }));
                         }}
-                        className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden"
+                        disabled={difficultySelected.easy}
+                        className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:bg-gray-500"
                     >
                         easy
                     </button>
                     <button
                         onClick={() => {
                             handleDifficultyChange("medium");
+                            setDifficultySelected((prev) => ({
+                                easy: false,
+                                medium: true,
+                                hard: false,
+                            }));
                         }}
-                        className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden"
+                        disabled={difficultySelected.medium}
+                        className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:bg-gray-500"
                     >
                         medium
                     </button>
                     <button
                         onClick={() => {
                             handleDifficultyChange("hard");
+                            setDifficultySelected((prev) => ({
+                                easy: false,
+                                medium: false,
+                                hard: true,
+                            }));
                         }}
-                        className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden"
+                        disabled={difficultySelected.hard}
+                        className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:bg-gray-500"
                     >
                         hard
                     </button>
                 </div>
                 {matrix.length > 1 ? (
-                    <div className="border border-red-500">
+                    <div className="">
                         {table.map((row: Array<number>, i: number) => {
                             return (
                                 <div className="flex" key={i}>
                                     {row.map((cellValue: number, j: number) => {
                                         const { pixelSize } = difficulty;
+                                        const adjustedSize =
+                                            window.innerWidth < 400
+                                                ? pixelSize * 0.75
+                                                : pixelSize;
                                         return (
                                             <button
                                                 key={j}
-                                                className="uppercase cursor-pointer text-center table-cell align-middle"
+                                                className="uppercase cursor-pointer text-center flex justify-center items-center"
                                                 onClick={(e) =>
                                                     handleClick(
                                                         e,
@@ -264,8 +292,8 @@ export default function WordSearch({ skills }: Props) {
                                                     )
                                                 }
                                                 style={{
-                                                    width: `${pixelSize}px`,
-                                                    height: `${pixelSize}px`,
+                                                    width: `${adjustedSize}px`,
+                                                    height: `${adjustedSize}px`,
                                                     backgroundColor:
                                                         cellValue === 1
                                                             ? "red"
@@ -275,6 +303,10 @@ export default function WordSearch({ skills }: Props) {
                                                     )
                                                         ? "1px solid darkgreen"
                                                         : "none",
+                                                    padding:
+                                                        difficultySelected.hard
+                                                            ? "2px"
+                                                            : "",
                                                 }}
                                                 disabled={isDisabled}
                                             >
@@ -290,7 +322,7 @@ export default function WordSearch({ skills }: Props) {
                 ) : (
                     <div>Loading...</div>
                 )}
-                <div className="flex md:flex-col justify-center gap-4 w-40">
+                <div className="flex md:flex-col justify-center gap-4 w-48">
                     {canReset ? (
                         <button
                             className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden"
@@ -321,7 +353,7 @@ export default function WordSearch({ skills }: Props) {
                     )}
                 </div>
             </div>
-            <ul className="flex gap-4 justify-center items-center">
+            <ul className="flex flex-row flex-wrap gap-2 md:gap-4 justify-center items-center">
                 {skills?.map((skill) => {
                     let grayscale = isFound.has(skill.title) ? "grayscale" : "";
                     return (
@@ -331,7 +363,7 @@ export default function WordSearch({ skills }: Props) {
                                 width={200}
                                 height={200}
                                 alt={`image of ${skill.title}`}
-                                className={`w-16 ${grayscale}`}
+                                className={`w-10 md:w-16 ${grayscale}`}
                             />
                         </li>
                     );
@@ -348,6 +380,7 @@ function useWordSearch(skills: Skills[]) {
     const [skillsLength, setSkillsLength] = useState(0);
     const [correctLetters, setCorrectLetters] = useState(() => new Set());
     const [isFound, setIsFound] = useState(() => new Set());
+    const [skillsList, setSkillsList] = useState([""]);
     const [difficulty, setDifficulty] = useState({
         factor: 8,
         level: "easy",
@@ -363,7 +396,8 @@ function useWordSearch(skills: Skills[]) {
         const skillsTitles = skills
             .filter((skills, i) => i < difficulty.numberOfWords)
             .map((skill) => skill.title);
-        console.log(skillsTitles);
+        // console.log(skillsTitles);
+        setSkillsList(skillsTitles);
         setTable(getInitialTable(0, MATRIX_SIZE - difficulty.factor));
         const { wordMatrix } = generateWordSearch(
             skillsTitles,
@@ -391,6 +425,7 @@ function useWordSearch(skills: Skills[]) {
         setDifficulty,
         table,
         setTable,
+        skillsList,
     };
 }
 
