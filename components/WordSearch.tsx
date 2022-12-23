@@ -282,7 +282,7 @@ export default function WordSearch({ skills }: Props) {
                                         return (
                                             <button
                                                 key={j}
-                                                className="uppercase cursor-pointer text-center flex justify-center items-center"
+                                                className="uppercase cursor-pointer text-center flex justify-center items-center active:bg-gray-500/40"
                                                 onClick={(e) =>
                                                     handleClick(
                                                         e,
@@ -296,12 +296,12 @@ export default function WordSearch({ skills }: Props) {
                                                     height: `${adjustedSize}px`,
                                                     backgroundColor:
                                                         cellValue === 1
-                                                            ? "red"
+                                                            ? "#9fabde"
                                                             : "transparent",
                                                     border: correctLetters.has(
                                                         `${i},${j}`
                                                     )
-                                                        ? "1px solid darkgreen"
+                                                        ? "1px solid #7f5af0"
                                                         : "none",
                                                     padding:
                                                         difficultySelected.hard
@@ -322,7 +322,7 @@ export default function WordSearch({ skills }: Props) {
                 ) : (
                     <div>Loading...</div>
                 )}
-                <div className="flex md:flex-col justify-center gap-4 w-48">
+                <div className="flex md:flex-col justify-center gap-4 w-48 ml-4">
                     {canReset ? (
                         <button
                             className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden"

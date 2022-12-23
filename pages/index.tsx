@@ -23,8 +23,8 @@ type Props = {
 
 export default function Home({ pageInfo, skills, projects, socials }: Props) {
     return (
-        <main className="w-full flex justify-center scrollbar md:snap-y md:snap-mandatory overflow-y-scroll scrollbar-track-gray-500/40 scrollbar-thumb-light-highlight/40 dark:scrollbar-thumb-dark-highlight">
-            <div className="min-h-screen max-w-6xl">
+        <main className="w-full flex justify-center scrollbar overflow-y-scroll scrollbar-track-gray-500/40 scrollbar-thumb-light-highlight/40 dark:scrollbar-thumb-dark-highlight">
+            <div className="min-h-screen max-w-6xl md:snap-y md:snap-mandatory overflow-y-scroll">
                 <Head>
                     <title>Himat Singh</title>
                 </Head>
@@ -35,22 +35,13 @@ export default function Home({ pageInfo, skills, projects, socials }: Props) {
                 <section id="about" className="w-full snap-center ">
                     <About pageInfo={pageInfo} />
                 </section>
-                <section
-                    id="projects"
-                    className="w-full h-screen snap-center border "
-                >
+                <section id="projects" className="w-full h-screen snap-center">
                     <ProjectsSection projects={projects} />
                 </section>
-                <section
-                    id="skills"
-                    className="w-full h-screen snap-start border "
-                >
+                <section id="skills" className="w-full h-screen snap-start">
                     <SkillsSection skills={skills} />
                 </section>
-                <section
-                    id="contact"
-                    className="w-full snap-start border "
-                >
+                <section id="contact" className="w-full snap-start">
                     <Contact />
                 </section>
                 <Footer socials={socials} />
