@@ -532,15 +532,15 @@ function generateWordSearch(skills: string[], difficultyFactor?: number) {
         } while (!placed);
     }
 
-    // for (let i = 0; i < wordMatrix.length; i++) {
-    //     for (let j = 0; j < wordMatrix.length; j++) {
-    //         //  if current cell has a letter just continue
-    //         if (wordMatrix[i][j] !== "_") continue;
+    for (let i = 0; i < wordMatrix.length; i++) {
+        for (let j = 0; j < wordMatrix.length; j++) {
+            //  if current cell has a letter just continue
+            if (wordMatrix[i][j] !== "_") continue;
 
-    //         //  else set cell value to getRandomLetter();
-    //         wordMatrix[i][j] = getRandomLetter();
-    //     }
-    // }
+            //  else set cell value to getRandomLetter();
+            wordMatrix[i][j] = getRandomLetter();
+        }
+    }
 
     return { wordMatrix };
 }

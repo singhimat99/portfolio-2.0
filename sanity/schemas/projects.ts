@@ -20,6 +20,14 @@ export default defineType({
       },
     },
     {
+      name: 'projectImageDark',
+      title: 'DarkImage',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    },
+    {
       name: 'summary',
       title: 'Summary',
       type: 'text',
