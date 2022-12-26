@@ -223,7 +223,7 @@ export default function WordSearch({ skills }: Props) {
                     );
                 })}
             </div>
-            <div className="relative flex flex-col md:flex-row justify-center items-center  w-full">
+            <div className="relative flex flex-col md:flex-row justify-center items-center gap-3 md:gap-1 w-full">
                 <div className="flex md:flex-col gap-4 md:w-48 min-w-40 mr-4 my-4 ">
                     <button
                         onClick={() => {
@@ -322,7 +322,7 @@ export default function WordSearch({ skills }: Props) {
                 ) : (
                     <div>Loading...</div>
                 )}
-                <div className="flex md:flex-col justify-center gap-4 w-48 ml-4">
+                <div className="flex md:flex-col justify-center gap-4 w-48 md:ml-4">
                     {canReset ? (
                         <button
                             className="px-4 py-2 uppercase rounded-lg cursor-pointer border-2 border-light-highlight dark:border-dark-highlight disabled:hidden"
@@ -353,7 +353,7 @@ export default function WordSearch({ skills }: Props) {
                     )}
                 </div>
             </div>
-            <ul className="flex flex-row flex-wrap gap-2 md:gap-4 justify-center items-center">
+            <ul className="flex flex-row flex-wrap m-4  gap-2 md:gap-4 justify-center items-center">
                 {skills?.map((skill) => {
                     let grayscale = isFound.has(skill.title) ? "grayscale" : "";
                     return (

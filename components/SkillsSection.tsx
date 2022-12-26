@@ -8,7 +8,7 @@ type Props = {
 
 export default function SkillsSection({ skills }: Props) {
     return (
-        <div className="relative flex flex-col justify-center items-center h-full">
+        <div className="relative flex flex-col justify-center items-center h-full gap-2">
             <h2 className="section-title">Skills</h2>
             <WordSearch skills={skills} />
         </div>
