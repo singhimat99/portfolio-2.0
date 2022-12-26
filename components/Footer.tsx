@@ -16,6 +16,7 @@ export default function Footer({ socials }: Props) {
                         <li key={social._id}>
                             <SocialIcon
                                 url={social.url}
+                                target="_blank"
                                 fgColor="#94a1b2"
                                 bgColor="transparent"
                             />

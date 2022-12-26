@@ -38,7 +38,9 @@ export default function Hero({ socials, pageInfo }: Props) {
                     width={200}
                     height={200}
                     alt="image of Himat Singh"
-                    className="w-36 md:w-48 object-fill rounded-full grayscale "
+                    className={`w-36 md:w-48 object-fill rounded-full ${
+                        isDark ? "grayscale" : ""
+                    }`}
                 />
                 <h2 className="uppercase text-sm md:text-base text-center font-semibold text-light-secondary dark:text-gray-600 tracking-[10px] my-4">
                     {pageInfo?.role}

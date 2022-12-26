@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import ProjectsSection from "../components/ProjectsSection";
 import SkillsSection from "../components/SkillsSection";
+import SocialsAside from "../components/SocialsAside";
 import { Skills, PageInfo, Socials, Projects } from "../typings";
 import {
     fetchPageInfo,
@@ -29,21 +30,25 @@ export default function Home({ pageInfo, skills, projects, socials }: Props) {
                     <title>Himat Singh</title>
                 </Head>
 
-                {/* Hero  */}
+                <SocialsAside socials={socials} />
                 <Hero socials={socials} pageInfo={pageInfo} />
 
                 <section id="about" className="w-full snap-center">
                     <About pageInfo={pageInfo} />
                 </section>
+
                 <section id="projects" className="w-full h-screen snap-center">
                     <ProjectsSection projects={projects} />
                 </section>
+
                 <section id="skills" className="w-full h-screen snap-start">
                     <SkillsSection skills={skills} />
                 </section>
+
                 <section id="contact" className="w-full snap-start">
                     <Contact />
                 </section>
+
                 <Footer socials={socials} />
             </div>
         </main>

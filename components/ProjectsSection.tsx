@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import portrait from "../public/profile-pic.png";
+// import portrait from "../public/profile-pic.png";
 import { Projects } from "../typings";
 import { urlFor } from "../sanity";
 import { useTheme } from "../pages/_app";
@@ -33,8 +33,8 @@ export default function ProjectsSection({ projects }: Props) {
                                 <div className="relative w-80% md:w-[50%]">
                                     <Image
                                         src={imageUrl}
-                                        width={300}
-                                        height={300}
+                                        width={1400}
+                                        height={800}
                                         alt="project image"
                                         className="w-full"
                                     />
