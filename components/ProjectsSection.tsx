@@ -16,7 +16,7 @@ export default function ProjectsSection({ projects }: Props) {
     return (
         <div className="relative flex flex-col justify-center h-full max-w-full overflow-hidden overflow-y-none">
             <h2 className="section-title">Projects</h2>
-            <div className="relative w-full flex flex-row overflow-x-scroll over-y-hidden snap-x snap-mandatory z-10">
+            <div className="relative w-full flex flex-row overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-10 py-8 scrollbar-thin scrollbar-track-gray-500/40 scrollbar-thumb-light-highlight dark:scrollbar-thumb-dark-highlight">
                 {projects ? (
                     projects.map((project) => {
                         let imageUrl = urlFor(project?.projectImage)?.url();
@@ -28,7 +28,7 @@ export default function ProjectsSection({ projects }: Props) {
                         return (
                             <div
                                 key={project._id}
-                                className="w-screen h-full flex-shrink-0 snap-center flex flex-col justify-center items-center"
+                                className="w-screen h-full flex-shrink-0 snap-center flex flex-col justify-center items-center gap-4"
                             >
                                 <div className="relative w-80% md:w-[50%]">
                                     <Image
@@ -50,7 +50,7 @@ export default function ProjectsSection({ projects }: Props) {
                                         {project.summary}
                                     </p>
                                 </div>
-                                <ul className="flex justify-center items-center gap-2">
+                                <ul className="flex justify-center items-center gap-4">
                                     {project.technologies.map((skill) => {
                                         return (
                                             <li key={skill._id}>
@@ -61,7 +61,7 @@ export default function ProjectsSection({ projects }: Props) {
                                                     width={400}
                                                     height={400}
                                                     alt={`image of ${skill.title}`}
-                                                    className={`w-10 md:w-16`}
+                                                    className={`w-5 md:w-8`}
                                                 />
                                             </li>
                                         );

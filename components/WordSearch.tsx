@@ -353,7 +353,7 @@ export default function WordSearch({ skills }: Props) {
                     )}
                 </div>
             </div>
-            <ul className="flex flex-row flex-wrap m-4  gap-2 md:gap-4 justify-center items-center">
+            <ul className="flex flex-row flex-wrap m-4 md:m-3 mt-0 gap-2 md:gap-4 justify-center items-center">
                 {skills?.map((skill) => {
                     let grayscale = isFound.has(skill.title) ? "grayscale" : "";
                     return (
