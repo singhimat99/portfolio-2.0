@@ -30,17 +30,17 @@ export default function ProjectsSection({ projects }: Props) {
                                 key={project._id}
                                 className="w-screen h-full flex-shrink-0 snap-center flex flex-col justify-center items-center"
                             >
-                                <div className="relative">
+                                <div className="relative w-80% md:w-[50%]">
                                     <Image
                                         src={imageUrl}
                                         width={300}
                                         height={300}
                                         alt="project image"
-                                        className="w-80 md:w-96"
+                                        className="w-full"
                                     />
-                                    <button className="absolute bottom-3 left-2/4 transform -translate-x-1/2 px-4 border border-light-secondary  dark:border-dark-secondary  bg-light-primary dark:bg-dark-primary">
+                                    {/* <button className="absolute bottom-3 left-2/4 transform -translate-x-1/2 px-4 border border-light-secondary  dark:border-dark-secondary  bg-light-primary dark:bg-dark-primary">
                                         More Info
-                                    </button>
+                                    </button> */}
                                 </div>
                                 <div className="mx-10 md:max-w-xl space-y-4">
                                     <h3 className="text-4xl font-semibold text-center">
