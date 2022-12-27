@@ -48,5 +48,10 @@ export default defineType({
       title: 'LinkToGithub',
       type: 'url',
     },
+    {
+      name: 'linkToBlog',
+      title: 'LinkToBlog',
+      type: 'url',
+    },
   ],
 })
