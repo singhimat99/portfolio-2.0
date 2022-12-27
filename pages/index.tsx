@@ -33,11 +33,11 @@ export default function Home({ pageInfo, skills, projects, socials }: Props) {
                 <SocialsAside socials={socials} />
                 <Hero socials={socials} pageInfo={pageInfo} />
 
-                <section id="about" className="w-full snap-center">
+                <section id="about" className="w-full snap-start">
                     <About pageInfo={pageInfo} />
                 </section>
 
-                <section id="projects" className="w-full h-screen snap-center">
+                <section id="projects" className="w-full snap-start">
                     <ProjectsSection projects={projects} />
                 </section>
 

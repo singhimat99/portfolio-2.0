@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Projects } from "../typings";
 import { urlFor } from "../sanity";
 import { useTheme } from "../pages/_app";
+import Link from "next/link";
 
 type Props = {
     projects: Projects[] | undefined;
@@ -14,7 +15,7 @@ export default function ProjectsSection({ projects }: Props) {
     const projectsTemp = [1, 2, 3, 4, 5];
 
     return (
-        <div className="relative flex flex-col justify-center h-full max-w-full overflow-hidden overflow-y-none">
+        <div className="relative flex flex-col justify-center h-full max-w-full overflow-hidden overflow-y-none mt-10">
             <h2 className="section-title">Projects</h2>
             <div className="relative w-full flex flex-row overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-10 py-8 scrollbar-thin scrollbar-track-gray-500/40 scrollbar-thumb-light-highlight dark:scrollbar-thumb-dark-highlight">
                 {projects ? (
@@ -42,13 +43,39 @@ export default function ProjectsSection({ projects }: Props) {
                                         More Info
                                     </button> */}
                                 </div>
-                                <div className="mx-10 md:max-w-xl space-y-4">
+                                <div className="mx-5 md:max-w-xl space-y-4">
                                     <h3 className="text-4xl font-semibold text-center">
                                         {project.title}
                                     </h3>
-                                    <p className="text-center">
+                                    <p className="text-center text-sm">
                                         {project.summary}
                                     </p>
+                                </div>
+                                <div className="flex gap-2">
+                                    {project.linkToDemo && (
+                                        <a
+                                            href={project.linkToDemo}
+                                            className="py-1 px-2 border-2 border-light-secondary dark:border-dark-secondary hover:bg-gray-500/50 active:bg-gray-500/50 rounded-md uppercase tracking-wider"
+                                        >
+                                            Demo
+                                        </a>
+                                    )}
+                                    {project.linkToGithub && (
+                                        <a
+                                            href={project.linkToGithub}
+                                            className="py-1 px-2 border-2 border-light-secondary dark:border-dark-secondary hover:bg-gray-500/50 active:bg-gray-500/50 rounded-md uppercase tracking-wider"
+                                        >
+                                            Github
+                                        </a>
+                                    )}
+                                    {project.linkToBlog && (
+                                        <a
+                                            href={project.linkToBlog}
+                                            className="py-1 px-2 border-2 border-light-secondary dark:border-dark-secondary hover:bg-gray-500/50 active:bg-gray-500/50 rounded-md uppercase tracking-wider"
+                                        >
+                                            Blog
+                                        </a>
+                                    )}
                                 </div>
                                 <ul className="flex justify-center items-center gap-4">
                                     {project.technologies.map((skill) => {

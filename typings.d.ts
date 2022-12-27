@@ -30,7 +30,7 @@ export interface Projects extends SanityBody {
     projectImage: Image;
     projectImageDark: Image;
     linkToDemo: string;
-    linkToDemo: string;
+    linkToGithub: string;
     linkToBlog: string;
     summary: string;
     technologies: Skills[];
