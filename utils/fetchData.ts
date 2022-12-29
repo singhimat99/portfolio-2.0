@@ -2,7 +2,7 @@ import { Skills, Socials, Projects, PageInfo } from "../typings";
 
 export const fetchProjects = async () => {
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/getProjects`
+        `${process.env.NEXT_PUBLIC_BASE_URL!}/api/getProjects`
     );
     const data = await response.json();
     const projects: Projects[] = data.projects;
@@ -12,7 +12,7 @@ export const fetchProjects = async () => {
 
 export const fetchSkills = async () => {
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/getSkills`
+        `${process.env.NEXT_PUBLIC_BASE_URL!}/api/getSkills`
     );
     const data = await response.json();
     const skills: Skills[] = data.skills;
@@ -22,7 +22,7 @@ export const fetchSkills = async () => {
 
 export const fetchPageInfo = async () => {
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/getPageInfo`
+        `${process.env.NEXT_PUBLIC_BASE_URL!}/api/getPageInfo`
     );
     const data = await response.json();
     const pageInfo: PageInfo = data.pageInfo;
@@ -32,7 +32,7 @@ export const fetchPageInfo = async () => {
 
 export const fetchSocials = async () => {
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/getSocials`
+        `${process.env.NEXT_PUBLIC_BASE_URL!}/api/getSocials`
     );
     const data = await response.json();
     const socials: Socials[] = data.socials;
