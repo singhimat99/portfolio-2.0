@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { Projects } from "../typings";
 import { urlFor } from "../sanity";
@@ -10,12 +10,21 @@ type Props = {
 
 export default function ProjectModal({ project }: Props) {
     const { isDark } = useTheme();
+    const [summary, setSummary] = useState(() => project.summary.slice(0, 99));
     let imageUrl = urlFor(project?.projectImage)?.url();
     if (project.projectImageDark) {
         imageUrl = isDark
             ? urlFor(project?.projectImageDark)?.url()
             : urlFor(project?.projectImage)?.url();
     }
+    function toggleReadMore() {
+        if (summary.length > 100) {
+            setSummary(project.summary.slice(0, 99));
+            return;
+        }
+        setSummary(project.summary);
+    }
+
     return (
         <div
             key={project._id}
@@ -38,7 +47,14 @@ export default function ProjectModal({ project }: Props) {
                     {project.title}
                 </h3>
                 <div className="text-center text-sm">
-                    {project.summary} <span>Read More...</span>
+                    {summary}
+                    {summary.length < 100 && "..."}
+                    <span
+                        className="underline text-lg ml-2 cursor-pointer text-gray-500 hover:text-white active:text-white"
+                        onClick={toggleReadMore}
+                    >
+                        {summary.length > 100 ? "read less" : "read more"}
+                    </span>
                 </div>
             </div>
             <div className="flex gap-2">
