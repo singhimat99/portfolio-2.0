@@ -1,9 +1,7 @@
 import { Skills, Socials, Projects, PageInfo } from "../typings";
 
 export const fetchProjects = async () => {
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL!}/api/getProjects`
-    );
+    const response = await fetch(`${"http://localhost:59563"}/api/getProjects`);
     const data = await response.json();
     const projects: Projects[] = data.projects;
     // console.log(projects);
