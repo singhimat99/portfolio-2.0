@@ -62,6 +62,7 @@ export default function ProjectModal({ project }: Props) {
                     <a
                         href={project.linkToDemo}
                         target="_blank"
+                        rel="noreferrer"
                         className="py-1 px-2 border-2 border-light-secondary dark:border-dark-secondary hover:bg-gray-500/50 active:bg-gray-500/50 rounded-md uppercase tracking-wider"
                     >
                         Demo
@@ -70,6 +71,7 @@ export default function ProjectModal({ project }: Props) {
                 {project.linkToGithub && (
                     <a
                         target="_blank"
+                        rel="noreferrer"
                         href={project.linkToGithub}
                         className="py-1 px-2 border-2 border-light-secondary dark:border-dark-secondary hover:bg-gray-500/50 active:bg-gray-500/50 rounded-md uppercase tracking-wider"
                     >
@@ -79,6 +81,7 @@ export default function ProjectModal({ project }: Props) {
                 {project.linkToBlog && (
                     <a
                         target="_blank"
+                        rel="noreferrer"
                         href={project.linkToBlog}
                         className="py-1 px-2 border-2 border-light-secondary dark:border-dark-secondary hover:bg-gray-500/50 active:bg-gray-500/50 rounded-md uppercase tracking-wider"
                     >

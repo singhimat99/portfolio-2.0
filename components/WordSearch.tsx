@@ -9,7 +9,7 @@ type Props = {
 const MATRIX_SIZE = 20;
 
 export default function WordSearch({ skills }: Props) {
-    if (!skills) return <div>Loading...</div>;
+    // if (!skills) return <div>Loading...</div>;
     const {
         matrix,
         skillsSet,
@@ -373,7 +373,7 @@ export default function WordSearch({ skills }: Props) {
     );
 }
 
-function useWordSearch(skills: Skills[]) {
+function useWordSearch(skills?: Skills[] | undefined) {
     const [matrix, setMatrix] = useState<string[][]>([[]]);
     const [skillsSet, setSkillsSet] = useState(() => new Set());
     const [resetMatrixCount, setResetMatrixCount] = useState(0);
@@ -394,8 +394,10 @@ function useWordSearch(skills: Skills[]) {
 
     useEffect(() => {
         const skillsTitles = skills
-            .filter((skills, i) => i < difficulty.numberOfWords)
-            .map((skill) => skill.title);
+            ? skills
+                  .filter((skills, i) => i < difficulty.numberOfWords)
+                  .map((skill) => skill.title)
+            : [];
         // console.log(skillsTitles);
         setSkillsList(skillsTitles);
         setTable(getInitialTable(0, MATRIX_SIZE - difficulty.factor));
