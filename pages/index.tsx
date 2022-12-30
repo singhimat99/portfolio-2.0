@@ -8,12 +8,8 @@ import ProjectsSection from "../components/ProjectsSection";
 import SkillsSection from "../components/SkillsSection";
 import SocialsAside from "../components/SocialsAside";
 import { Skills, PageInfo, Socials, Projects } from "../typings";
-import {
-    fetchPageInfo,
-    fetchProjects,
-    fetchSkills,
-    fetchSocials,
-} from "../utils/fetchData";
+import { groq } from "next-sanity";
+import { sanityClient } from "../sanity";
 
 type Props = {
     pageInfo?: PageInfo;
@@ -56,10 +52,18 @@ export default function Home({ pageInfo, skills, projects, socials }: Props) {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-    const pageInfo: PageInfo = await fetchPageInfo();
-    const projects: Projects[] = await fetchProjects();
-    const skills: Skills[] = await fetchSkills();
-    const socials: Socials[] = await fetchSocials();
+    const pageInfo: PageInfo = await sanityClient.fetch(
+        groq`*[_type == "pageInfo"][0]`
+    );
+    const projects: Projects[] = await sanityClient.fetch(
+        groq`*[_type == "projects"] {...,technologies[]->}`
+    );
+    const skills: Skills[] = await sanityClient.fetch(
+        groq`*[_type == "skills"]`
+    );
+    const socials: Socials[] = await sanityClient.fetch(
+        groq`*[_type == "socials"]`
+    );
 
     return {
         props: {
