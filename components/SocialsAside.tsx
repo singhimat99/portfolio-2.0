@@ -8,7 +8,7 @@ type Props = {
 
 export default function SocialsAside({ socials }: Props) {
     return (
-        <aside className="fixed w-fit hidden md:flex top-[200px] left-[0] overflow-hidden shadow-2xl shadow-gray-900/80 dark:max-xl:shadow-white/0 p-[2px] z-50">
+        <aside className="absolute w-fit hidden md:flex top-[200px] left-[0] overflow-hidden shadow-2xl shadow-gray-900/80 dark:max-xl:shadow-white/20 p-[2px] z-50">
             <ul className="flex flex-col gap-1">
                 {socials?.map((social) => {
                     return (

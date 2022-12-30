@@ -41,7 +41,7 @@
         @apply uppercase px-4 py-3 text-sm tracking-widest text-light-secondary dark:text-gray-400 active:border hover:border transition-all border-light-highlight dark:border-dark-highlight rounded-full;
     }
     .section-title {
-        @apply relative w-full text-center justify-self-start mb-4 uppercase tracking-[17.5px] text-3xl dark:text-gray-500 after:h-[1px] dark:after:bg-transparent after:bg-light-highlight after:absolute after:-bottom-3 after:left-[50%] after:transform after:-translate-x-[50%] after:w-[50%];
+        @apply relative text-center justify-self-start uppercase tracking-[17.5px] pl-[17.5px] text-3xl dark:text-gray-500 after:h-[1px] dark:after:bg-transparent after:bg-light-highlight after:absolute after:-bottom-3 after:left-[50%] after:transform after:-translate-x-[50%] after:w-[50vw];
     }
     .contact_form-input {
         @apply border shadow-xl border-light-secondary dark:bg-dark-tertiary/50 dark:text-dark-secondary rounded-xl p-4 focus:text-light-highlight;

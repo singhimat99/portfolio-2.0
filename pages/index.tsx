@@ -29,11 +29,17 @@ export default function Home({ pageInfo, skills, projects, socials }: Props) {
                 <SocialsAside socials={socials} />
                 <Hero socials={socials} pageInfo={pageInfo} />
 
-                <section id="about" className="w-full snap-start">
+                <section
+                    id="about"
+                    className="w-full snap-center h-screen min-h-[500px]"
+                >
                     <About pageInfo={pageInfo} />
                 </section>
 
-                <section id="projects" className="w-full snap-start">
+                <section
+                    id="projects"
+                    className="w-full h-screen min-h-[900px] snap-start"
+                >
                     <ProjectsSection projects={projects} />
                 </section>
 

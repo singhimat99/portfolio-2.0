@@ -10,7 +10,7 @@ type Props = {
 export default function About({ pageInfo }: Props) {
     // console.log(urlFor(pageInfo?.professionalImage).url());
     return (
-        <div className="flex flex-col justify-center items-center md:gap-4">
+        <div className="flex flex-col justify-center h-full items-center gap-0 md:gap-4 mt-20 md:m-0">
             <h2 className="section-title">About</h2>
             <div className="relative flex flex-col md:flex-row justify-center items-center gap-10 m-8 md:mt-2">
                 <Image
@@ -18,7 +18,7 @@ export default function About({ pageInfo }: Props) {
                     width={225}
                     height={225}
                     alt="picture of Himat Singh"
-                    className="w-56 aspect-auto rounded-full md:rounded-lg md:w-64 xl:w-96 mt-24 md:mt-0"
+                    className="w-56 aspect-auto rounded-full md:rounded-lg md:w-64 xl:w-96 mt-10 md:mt-0"
                 />
                 <div className="flex flex-col justify-center ">
                     <h3 className="text-3xl tracking-wider text-center">

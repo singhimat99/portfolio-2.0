@@ -28,7 +28,7 @@ export default function ProjectModal({ project }: Props) {
     return (
         <div
             key={project._id}
-            className="w-screen h-full flex-shrink-0 snap-center flex flex-col justify-center items-center gap-4"
+            className="w-full h-full flex-shrink-0 snap-center flex flex-col justify-center items-center gap-4"
         >
             <div className="relative w-80% md:w-[50%]">
                 <Image

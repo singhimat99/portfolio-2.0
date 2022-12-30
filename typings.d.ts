@@ -34,6 +34,7 @@ export interface Projects extends SanityBody {
     linkToBlog: string;
     summary: string;
     technologies: Skills[];
+    priority: number;
 }
 
 export interface PageInfo extends SanityBody {
