@@ -18,7 +18,7 @@ export default function Hero({ socials, pageInfo }: Props) {
     const [text] = useTypewriter({
         words: [
             "Hey, My name is Himat Singh",
-            "Frelance Writer",
+            "Problem Solver",
             "ProfessionalGoogler",
         ],
         loop: true,
